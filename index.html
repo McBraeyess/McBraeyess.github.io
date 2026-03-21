@@ -1,0 +1,1604 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIA Domiciliario – Manuel García López | ATBT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* ===== VARIABLES Y RESET ===== */
+        :root {
+            --verde-pastel: #98FB98;
+            --verde-oscuro: #6BCB6B;
+            --verde-profundo: #3a7d3a;
+            --naranja-pastel: #FFDAB9;
+            --naranja-oscuro: #f0b88a;
+            --blanco: #ffffff;
+            --gris-claro: #f4f7f5;
+            --gris-texto: #444;
+            --gris-suave: #777;
+            --sombra: 0 4px 15px rgba(0,0,0,0.08);
+            --sombra-hover: 0 8px 30px rgba(0,0,0,0.15);
+            --radio: 16px;
+            --transicion: all 0.3s ease;
+        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--gris-texto);
+            line-height: 1.75;
+            background: linear-gradient(135deg, #f0faf0 0%, #fff5ee 50%, #f0faf0 100%);
+            min-height: 100vh;
+        }
+        img { max-width: 100%; height: auto; display: block; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* ===== HERO ===== */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: url('https://images.unsplash.com/photo-1517267667008-3b8018f4b4f7?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') center/cover no-repeat;
+            color: var(--blanco);
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.70) 100%);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            padding: 2rem;
+        }
+        .hero-logo {
+            font-size: 1.1rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--verde-pastel);
+            margin-bottom: .5rem;
+            font-weight: 700;
+        }
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: .5rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        .hero h1 span { color: var(--verde-pastel); }
+        .hero .subtitulo {
+            font-size: clamp(1rem, 2.5vw, 1.35rem);
+            margin-bottom: 1.5rem;
+            opacity: .92;
+        }
+        .hero-datos {
+            display: inline-block;
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: var(--radio);
+            padding: 1.2rem 2rem;
+            text-align: left;
+            font-size: .95rem;
+            line-height: 2;
+        }
+        .hero-datos i { color: var(--verde-pastel); margin-right: .5rem; width: 20px; text-align: center; }
+        .hero-scroll {
+            margin-top: 2rem;
+            display: inline-block;
+            animation: bounce 2s infinite;
+        }
+        .hero-scroll i { font-size: 2rem; color: var(--verde-pastel); }
+        @keyframes bounce {
+            0%,100% { transform: translateY(0); }
+            50% { transform: translateY(12px); }
+        }
+
+        /* ===== HEADER TÍTULO ===== */
+        .header-titulo {
+            background: linear-gradient(135deg, var(--verde-pastel), var(--naranja-pastel));
+            text-align: center;
+            padding: 2.5rem 1rem;
+        }
+        .header-titulo h2 {
+            font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+            color: var(--verde-profundo);
+            font-weight: 800;
+        }
+        .header-titulo p {
+            color: var(--gris-texto);
+            margin-top: .3rem;
+            font-size: 1rem;
+        }
+
+        /* ===== NAV STICKY ===== */
+        .nav-sticky {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--blanco);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: .5rem;
+            padding: .75rem 1rem;
+        }
+        .nav-sticky a {
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            padding: .5rem 1.1rem;
+            border-radius: 50px;
+            font-size: .85rem;
+            font-weight: 600;
+            color: var(--verde-profundo);
+            border: 2px solid var(--verde-pastel);
+            transition: var(--transicion);
+        }
+        .nav-sticky a:hover, .nav-sticky a.active {
+            background: var(--verde-pastel);
+            color: #1a4a1a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(152,251,152,0.4);
+        }
+
+        /* ===== SECCIONES ===== */
+        .seccion {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 3.5rem 1.5rem;
+        }
+        .seccion-titulo {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+        .seccion-titulo h2 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            color: var(--verde-profundo);
+            position: relative;
+            display: inline-block;
+            padding-bottom: .5rem;
+        }
+        .seccion-titulo h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            border-radius: 2px;
+            background: linear-gradient(90deg, var(--verde-pastel), var(--naranja-pastel));
+        }
+        .seccion-titulo p { color: var(--gris-suave); margin-top: .7rem; }
+
+        /* ===== TARJETAS ===== */
+        .tarjeta {
+            background: var(--blanco);
+            border-radius: var(--radio);
+            box-shadow: var(--sombra);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            transition: var(--transicion);
+            border-left: 4px solid var(--verde-pastel);
+        }
+        .tarjeta:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--sombra-hover);
+        }
+        .tarjeta h3 {
+            color: var(--verde-profundo);
+            margin-bottom: .7rem;
+            font-size: 1.2rem;
+        }
+        .tarjeta h3 i { margin-right: .5rem; color: var(--verde-oscuro); }
+        .tarjeta ul { padding-left: 1.2rem; }
+        .tarjeta ul li { margin-bottom: .35rem; position: relative; padding-left: .8rem; }
+        .tarjeta ul li::before {
+            content: '●';
+            position: absolute;
+            left: 0;
+            color: var(--naranja-oscuro);
+            font-size: .6rem;
+            top: .45rem;
+        }
+
+        /* ===== GRID SERVICIOS ===== */
+        .grid-servicios {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+        }
+        .grid-servicios .tarjeta { border-left: none; border-top: 4px solid var(--naranja-pastel); text-align: center; }
+        .grid-servicios .tarjeta i.icono-servicio {
+            font-size: 2.5rem;
+            color: var(--verde-oscuro);
+            margin-bottom: .8rem;
+        }
+
+        /* ===== GALERÍA ===== */
+        .galeria {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .galeria img {
+            border-radius: var(--radio);
+            object-fit: cover;
+            height: 220px;
+            width: 100%;
+            box-shadow: var(--sombra);
+            transition: var(--transicion);
+        }
+        .galeria img:hover { transform: scale(1.03); box-shadow: var(--sombra-hover); }
+
+        /* ===== DATOS LISTA ===== */
+        .datos-lista {
+            background: linear-gradient(135deg, rgba(152,251,152,0.15), rgba(255,218,185,0.15));
+            border-radius: var(--radio);
+            padding: 1.5rem 2rem;
+            margin: 1.5rem 0;
+        }
+        .datos-lista li {
+            padding: .4rem 0;
+            border-bottom: 1px dashed rgba(0,0,0,0.07);
+        }
+        .datos-lista li:last-child { border-bottom: none; }
+        .datos-lista i { color: var(--verde-oscuro); margin-right: .5rem; width: 22px; text-align: center; }
+        .datos-lista strong { color: var(--verde-profundo); }
+
+        /* ===== ACORDEÓN ===== */
+        .acordeon { margin-bottom: .8rem; }
+        .acordeon-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.1rem 1.5rem;
+            background: linear-gradient(135deg, var(--verde-pastel), #b8f5b8);
+            border: none;
+            border-radius: var(--radio);
+            cursor: pointer;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--verde-profundo);
+            transition: var(--transicion);
+        }
+        .acordeon-btn:hover { background: linear-gradient(135deg, #86e986, var(--verde-pastel)); }
+        .acordeon-btn i.flecha { transition: transform .3s ease; }
+        .acordeon-btn.activo i.flecha { transform: rotate(180deg); }
+        .acordeon-btn.activo { border-radius: var(--radio) var(--radio) 0 0; }
+        .acordeon-contenido {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height .5s ease;
+            background: var(--blanco);
+            border-radius: 0 0 var(--radio) var(--radio);
+            box-shadow: var(--sombra);
+        }
+        .acordeon-contenido.abierto { max-height: 12000px; }
+        .acordeon-inner { padding: 1.8rem 2rem; }
+        .acordeon-inner h4 {
+            color: var(--verde-profundo);
+            margin: 1.2rem 0 .5rem;
+            font-size: 1.05rem;
+            border-bottom: 2px solid var(--naranja-pastel);
+            padding-bottom: .3rem;
+        }
+        .acordeon-inner h4:first-child { margin-top: 0; }
+
+        /* ===== TABLAS ===== */
+        .tabla-wrapper { overflow-x: auto; margin: 1rem 0; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: .88rem;
+            background: var(--blanco);
+            border-radius: var(--radio);
+            overflow: hidden;
+            box-shadow: var(--sombra);
+        }
+        thead { background: linear-gradient(135deg, var(--verde-pastel), var(--naranja-pastel)); }
+        th {
+            padding: .85rem .7rem;
+            text-align: left;
+            font-weight: 700;
+            color: var(--verde-profundo);
+            font-size: .82rem;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+        }
+        td { padding: .75rem .7rem; border-bottom: 1px solid #eee; vertical-align: top; }
+        tbody tr:hover { background: rgba(152,251,152,0.08); }
+        tbody tr:last-child td { border-bottom: none; }
+
+        /* ===== INDICADORES ===== */
+        .indicador-grupo {
+            background: linear-gradient(135deg, rgba(152,251,152,0.1), rgba(255,218,185,0.1));
+            border-radius: var(--radio);
+            padding: 1.3rem 1.5rem;
+            margin: 1rem 0;
+            border-left: 4px solid var(--naranja-pastel);
+        }
+        .indicador-grupo h5 {
+            color: var(--verde-profundo);
+            font-size: 1rem;
+            margin-bottom: .5rem;
+        }
+        .indicador-grupo h5 i { margin-right: .4rem; }
+        .indicador-grupo ul li { margin-bottom: .3rem; font-size: .92rem; }
+
+        /* ===== TELPES ===== */
+        .telpes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .telpes-card {
+            background: var(--blanco);
+            border-radius: var(--radio);
+            box-shadow: var(--sombra);
+            padding: 1.5rem;
+            border-top: 4px solid var(--verde-pastel);
+            transition: var(--transicion);
+        }
+        .telpes-card:hover { transform: translateY(-4px); box-shadow: var(--sombra-hover); }
+        .telpes-card i.icono-telpes { font-size: 2rem; color: var(--verde-oscuro); margin-bottom: .8rem; }
+        .telpes-card h4 { color: var(--verde-profundo); margin-bottom: .5rem; }
+
+        /* ===== SOLICITAR ===== */
+        .proceso-paso {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+        .paso-numero {
+            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--verde-pastel), var(--naranja-pastel));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: var(--verde-profundo);
+        }
+        .paso-contenido h4 { color: var(--verde-profundo); margin-bottom: .3rem; }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: linear-gradient(135deg, #2d5a2d, #1a3a1a);
+            color: rgba(255,255,255,.85);
+            text-align: center;
+            padding: 2rem 1rem;
+            font-size: .9rem;
+        }
+        footer a { color: var(--verde-pastel); }
+        footer .footer-logo { color: var(--verde-pastel); font-weight: 800; font-size: 1.2rem; margin-bottom: .5rem; }
+
+        /* ===== BOTÓN ARRIBA ===== */
+        .btn-arriba {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--verde-pastel), var(--verde-oscuro));
+            color: var(--blanco);
+            border: none;
+            cursor: pointer;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transicion);
+            z-index: 999;
+        }
+        .btn-arriba.visible { opacity: 1; visibility: visible; }
+        .btn-arriba:hover { transform: translateY(-3px) scale(1.1); }
+
+        /* ===== BADGE ===== */
+        .badge {
+            display: inline-block;
+            padding: .2rem .7rem;
+            border-radius: 50px;
+            font-size: .75rem;
+            font-weight: 700;
+            background: var(--naranja-pastel);
+            color: #8a5a2a;
+            margin: .1rem;
+        }
+        .badge-verde { background: var(--verde-pastel); color: var(--verde-profundo); }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .nav-sticky { gap: .3rem; padding: .5rem; }
+            .nav-sticky a { padding: .4rem .7rem; font-size: .75rem; }
+            .seccion { padding: 2rem 1rem; }
+            .acordeon-inner { padding: 1.2rem; }
+            .proceso-paso { flex-direction: column; align-items: center; text-align: center; }
+            table { font-size: .78rem; }
+            th, td { padding: .5rem .4rem; }
+        }
+        @media (max-width: 480px) {
+            .hero-datos { padding: .8rem 1rem; font-size: .85rem; }
+            .hero h1 { font-size: 1.6rem; }
+        }
+
+        /* ===== SEPARADOR ===== */
+        .separador {
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--verde-pastel), var(--naranja-pastel), transparent);
+            border-radius: 2px;
+            margin: 0 auto;
+            max-width: 300px;
+        }
+
+        /* Animación entrada */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity .6s ease, transform .6s ease;
+        }
+        .fade-in.visible-anim {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero" id="hero">
+    <div class="hero-content">
+        <div class="hero-logo"><i class="fas fa-heart-pulse"></i> ATBT — Atención Total · Bienestar Total</div>
+        <h1>Plan Individual de Atención<br><span>Domiciliario para Manolo</span></h1>
+        <p class="subtitulo">Cuidado integral, personalizado y humano en el hogar de Manuel García López</p>
+        <div class="hero-datos">
+            <i class="fas fa-user"></i> <strong>Manuel García López</strong> (Manolo), 75 años<br>
+            <i class="fas fa-id-card"></i> DNI: 12345678Z<br>
+            <i class="fas fa-cake-candles"></i> Nacimiento: 15 de mayo de 1950<br>
+            <i class="fas fa-house"></i> C/ de la Paz 12, 3ºB — 28012 Madrid<br>
+            <i class="fas fa-folder-open"></i> Expediente: <strong>EXP-2025-04789-ATBT</strong>
+        </div>
+        <div class="hero-scroll"><a href="#header-pia"><i class="fas fa-chevron-down"></i></a></div>
+    </div>
+</section>
+
+<!-- ==================== HEADER TÍTULO ==================== -->
+<div class="header-titulo" id="header-pia">
+    <h2><i class="fas fa-file-medical"></i> Plan Individual de Atención (PIA) Domiciliario</h2>
+    <p>Expediente EXP-2025-04789-ATBT · Elaborado por el equipo multidisciplinar de ATBT</p>
+</div>
+
+<!-- ==================== NAV STICKY ==================== -->
+<nav class="nav-sticky" id="nav">
+    <a href="#introduccion"><i class="fas fa-info-circle"></i> Introducción</a>
+    <a href="#necesidades"><i class="fas fa-clipboard-list"></i> Necesidades</a>
+    <a href="#servicios"><i class="fas fa-hand-holding-heart"></i> Servicios</a>
+    <a href="#pia-detallado"><i class="fas fa-book-medical"></i> PIA Detallado</a>
+    <a href="#telpes"><i class="fas fa-bell"></i> TELPES</a>
+    <a href="#solicitar-telpes"><i class="fas fa-paper-plane"></i> Solicitar TELPES</a>
+</nav>
+
+<!-- ==================== INTRODUCCIÓN ==================== -->
+<section class="seccion fade-in" id="introduccion">
+    <div class="seccion-titulo">
+        <h2><i class="fas fa-user-circle"></i> Introducción · Perfil de Manolo</h2>
+        <p>Conocer a la persona es el primer paso para cuidar con dignidad</p>
+    </div>
+
+    <div class="tarjeta">
+        <h3><i class="fas fa-heart"></i> Resumen del perfil</h3>
+        <p>Manuel García López, conocido con cariño como <strong>Manolo</strong>. Nació en un pueblo de unos 1200 habitantes en los años 50 <strong>(EDAD: 75 años)</strong> donde los recursos sociales y económicos no permitían a personas sordas desarrollar su forma de comunicación adecuadamente (usar LSE), por eso Manolo se vio obligado a usar una libreta con la que se comunicaba correctamente. Pese a no tener ningún problema en el aparato bucofonador.
+A la edad adulta ya se mudó a la gran ciudad donde vive solo en su casa en el centro de Madrid. Su esposa, Carmen, falleció hace dos años y desde entonces se ha sentido muy solo. Manolo parece de <strong>hipoacusia neurosensorial severa bilateral</strong> (sordera profunda), también parece de <strong>diabetes mellitus tipo 1</strong> en tratamiento con insulina basal, y hace seis meses sufrió <strong>una caída en el propio domicilio</strong>, con fractura de muñeca izquierda, actualmente ya recuperada pero con secuelas físicas leves.</p>
+        <p style="margin-top:.8rem;">Desde la muerte de Carmen, Manolo ha estado deprimido y sufre de <strong>aislamiento social</strong>, y debido a su sordera, le cuesta comunicarse debidamente, lo que le hace también sentirse solo. Ha perdido interés por cosas que antes disfrutaba, como pasear, jugar al dominó o visitar a su hermano. A pesar de todo esto, Manolo quiere seguir <strong>viviendo en su casa</strong>, y está dispuesto a trabajar con los/as profesionales para mejorar su situación.</p>
+        <p style="margin-top:.8rem;">Este plan se ha diseñado para ayudar a Manolo a <strong>potenciar su autonomía, seguridad, bienestar emocional</strong>, y todo eso se hará desde una base de respeto a sus preferencias, a su ritmo de vida y por supuesto a su dignidad como persona.</p>
+    </div>
+
+    <div class="tarjeta">
+        <h3><i class="fas fa-id-badge"></i> Datos personales</h3>
+        <ul class="datos-lista">
+            <li><i class="fas fa-user"></i> <strong>Nombre y apellidos:</strong> Manuel García López (Manolo)</li>
+            <li><i class="fas fa-birthday-cake"></i> <strong>Edad actual:</strong> 75 años</li>
+            <li><i class="fas fa-id-card"></i> <strong>Documento de identidad:</strong> 12345678Z</li>
+            <li><i class="fas fa-calendar"></i> <strong>Fecha de nacimiento:</strong> 15 de mayo de 1950</li>
+            <li><i class="fas fa-map-marker-alt"></i> <strong>Domicilio Actual:</strong> Calle de la Paz, Portal 12, Piso 3ºB, CP: 28012 Madrid</li>
+            <li><i class="fas fa-folder-open"></i> <strong>Nº Expediente ATBT:</strong> EXP-2025-04789-ATBT</li>
+            <li><i class="fas fa-ring"></i> <strong>Estado civil:</strong> Viudo</li>
+            <li><i class="fas fa-people-arrows"></i> <strong>Red familiar:</strong> Un hermano (Pedro, 72 años, Madrid), una hija (Laura, 48 años, Barcelona).</li>
+            <li><i class="fas fa-stethoscope"></i> <strong>Diagnósticos principales:</strong> Hipoacusia neurosensorial severa bilateral (sordera), diabetes mellitus tipo 1, antecedente de caída con una fractura de muñeca</li>
+            <li><i class="fas fa-gavel"></i> <strong>Grado de dependencia:</strong> Grado I (Dependencia moderada)</li>
+         
+        </ul>
+    </div>
+
+    <div class="galeria">
+        <img src="https://images.unsplash.com/photo-1472066719480-ecc7314ed065?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Cuidado domiciliario personas mayores">
+        <img src="https://images.unsplash.com/photo-1543333995-a78aea2eee50?w=600&q=80" alt="Atención profesional sanitaria">
+        <img src="https://images.unsplash.com/photo-1508963493744-76fce69379c0?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Bienestar y acompañamiento personas mayores">
+    </div>
+</section>
+
+<div class="separador"></div>
+
+<!-- ==================== NECESIDADES CLASIFICADAS ==================== -->
+<section class="seccion fade-in" id="necesidades">
+    <div class="seccion-titulo">
+        <h2><i class="fas fa-clipboard-list"></i> Necesidades Clasificadas</h2>
+        <p>Valoración multidimensional de las necesidades específicas de Manolo</p>
+    </div>
+
+    <div class="tarjeta">
+        <h3><i class="fas fa-broom"></i> 1. Necesidades Domésticas</h3>
+        <p>Tras la caída y la fractura de muñeca, Manolo se siente inseguro para hacer algunas tareas del hogar. Aunque puede hacer cosas, necesita <strong>ayuda de vez en cuando y alguien que lo supervise </strong> para lograr su autonomía e independencia.</p>
+        <ul>
+            <li><strong>Limpieza del hogar:</strong> Manolo tiene problemas con tareas que requieren fuerza en su muñeca izquierda, ademas de no tener las nociones necesarias para ello, como fregar, barrer o escurrir. Necesita ayuda semanal para limpiar a fondo y alguien que lo ayude con las tareas diarias ligeras.</li>
+            <li><strong>Preparación de comidas:</strong> Manolo siempre cocinó con Carmen. Ahora se siente inseguro cocinando solo. También tiene riesgo de incendios porque no escucha las alarmas. Tiende a comer alimentos precocinados, lo que empeora su control de azúcar.</li>
+            <li><strong>Lavado de ropa:</strong> Maneja de forma basica la lavadora y le cuesta tender la ropa con su mano izquierda. A veces no escucha cuando termina el ciclo.</li>
+            <li><strong>Compras básicas:</strong> Sale poco de casa porque tiene miedo de caerse. Necesita que alguien lo acompañe al principio y luego ir recuperando su independencia para hacer compras cerca de su casa..</li>
+                    </ul>
+    </div>
+
+    <div class="tarjeta">
+        <h3><i class="fas fa-heartbeat"></i> 2. Necesidades de Salud</h3>
+        <p>Manolo tiene una situación que necesita ser<strong> vigilada de cerca y coordinada</strong>, especialmente en el control metabólico y en la prevención de caídas.</p>
+        <ul>
+            <li><strong>Control de diabetes:</strong>  La cantidad de azúcar en la sangre de Manolo es un poco alta, con un nivel de HbA1c del 7.8%. El objetivo es que esté por debajo del 7%. Manolo tiene dificultades para escuchar las alarmas de su glucómetro y a veces se olvida de tomar su insulina basal. Necesita aprender más sobre su diabetes de una manera que se adapte a sus necesidades visuales, alguien que lo ayude con su dieta y que lo apoye para registrar sus niveles de azúcar en la sangre todos los días.
+</li>
+            <li><strong>Prevención de caídas:</strong> Manolo tiene un riesgo alto de caídas (Tinetti: 19/28). Tiene secuelas en su muñeca izquierda, camina de manera insegura y no tiene buena iluminación en su casa por la noche. Además, las alfombras no están bien fijas y la bañera no tiene asideros. Manolo necesita que su entorno sea adaptado para que sea más seguro, hacer ejercicios para mejorar su equilibrio y tener un plan para actuar en caso de caídas.</li>
+            <li><strong>Medicación:</strong> insulina glargina (basal), atorvastatina (debido a la dieta actual de Manolo, su colesterol peligra) y vitamina D (debido a no exponerse al sol lo necesario). Organización con pastillero semanal que necesita supervisión; riesgo de errores por no leer bien la letra pequeña.</li>
+            <li><strong>Rehabilitación funcional:</strong> Es importante que Manolo fortalezca su muñeca izquierda, mejore su equilibrio y mantenga la movilidad en sus articulaciones.
+</li>
+            <li><strong>Revisiones sensoriales:</strong> Manolo necesita hacer audiometrías periódicas y revisar su audífono, ya que actualmente no lo usa porque le molesta y pita.</li>
+        </ul>
+    </div>
+
+    <div class="tarjeta">
+        <h3><i class="fas fa-comments"></i> 3. Necesidades de Comunicación</h3>
+        <p>La sordera profunda de Manolo afecta todas las áreas de su vida. Desde que perdió la audición, ha desarrollado diferentes formas de comunicarse, pero después de enviudar, se ha aislado y ahora tiene menos práctica y confianza.</p>
+        <ul>
+            <li><strong>Lengua de Signos Española (LSE) básica:</strong> Manolo aprendió alrededor de 180 señas en un curso de la ONCE. Las usa con su hija Laura, que también sabe LSE, y con el intérprete que va a su centro de salud.
+</li>
+            <li><strong>Escritura y lectura labial:</strong> Manolo también se comunica escribiendo en una libreta o en la pizarra de la cocina. Además, se apoya en la lectura de labios para comunicarse adecuadamente, aunque no siempre con claridad, normalmente cuando la luz es buena y está cara a cara con la persona.
+</li>
+            <li><strong>Pictogramas y comunicación visual:</strong> ATBT ha puesto a disposición de Manolo, pictogramas ARASAAC para ayudarle en las rutinas diarias, la medicación y la seguridad. Manolo los usa con naturalidad.
+
+            <li><strong>Aplicaciones texto-voz (TTS/STT):</strong> Para entender a la gente que no sabe LSE, usa una aplicación en su tableta que transcribe en tiempo real lo que dicen. La usa cuando va al médico o cuando viene su hermano Pedro.
+
+            <li><strong>Gestos naturales y expresión corporal:</strong> Manolo también usa gestos y expresiones corporales para comunicarse, complementando así su comunicación. </li>
+        </ul>
+        <p style="margin-top:1rem;"><i class="fas fa-exclamation-triangle" style="color:#e67e22;"></i> <strong>Necesidad de comunicación prioritaria:</strong> La prioridad es que todos los/as profesionales que atiendan a Manolo sepan y respeten cómo se comunica. Toda la información que le den, debe ser en formato visual o pictográfico.
+
+<i class="fas fa-vibrate icono-telpes" style="font-size:2rem;"></i>
+            <h4><i class="fas fa-hand-point-up"></i> Estrategias comunicativas que usaremos:</h4>
+
+
+<li><strong>ESPECÍFICAS:</strong> Avisar con gestos antes de empezar a hablar con Manolo/Colocarse cerca, de frente y a la misma altura que Manolo, a ser posible/Hablar de forma natural, pero un poco más despacio y vocalizar bien las palabras, ayudándole en la medida de lo posible a que se pueda apoyar en la lectura de labios/Hacer gestos, pero sin exagerar/Y que el lenguaje sea directo, claro y sencillo.
+
+<li><strong>CONVENCIONALES:</strong> Mirar a los ojos a la persona usuaria, junto a una gestualidad adaptada, una proxemia adecuada y si hace falta comunicarse de manera táctil, pero no agresivo hacia el usuario
+
+<li><strong>SAAC CON AYUDA:</strong> Con Manolo usaremos pictogramas en zonas clave para que en situaciones de emergencia como una hipoglucemia, se comunique de forma más eficaz con alguien que esté alrededor y para la evaluación de síntomas en relación a su estado de animo y emocional. (caritas, corazones, sol, luna...)
+
+
+<li><strong>SAAC SIN AYUDA:</strong> Con Manolo usaremos un nivel básico-intermedio de LSE y le iremos formando lo que podamos en ello poco a poco; además, estableceremos las facilidades necesarias para que Manolo pueda efectuar la lectura de labio de la manera más correcta.
+
+
+
+
+
+</p>
+   </div>
+
+    <div class="tarjeta">
+        <h3><i class="fas fa-heartbeat"></i> 4.  Necesidades Emocionales y Sociales</h3>
+        <p>Manolo tiene necesidades muy importantes en su <strong>Plan Individualizado de Atencion</strong>, El duelo por la pérdida de su esposa Carmen, junto con la barrera de la comunicación debido a su sordera y el miedo a caerse, lo han llevado a un circulo de aislamiento que afecta mucho a su calidad de vida.</p>
+        <ul>
+
+            <li><strong>Duelo y adaptación a la viudez:</strong> Manolo necesita ayuda para superar el duelo y adaptarse a la vida sin Carmen. No ha recibido apoyo psicológico formal después de su fallecimiento. A veces escribe que “la casa está muy vacía” y que “no tiene sentido cocinar para uno solo". Incluso ha creado un altar con fotos de Carmen en el salón y habla con ella en voz alta.
+
+</li>
+            <li><strong>Soledad y aislamiento:</strong> También se siente solo , aislado y con depresión leve. Antes iba al centro de mayores tres veces a la semana a jugar al dominó, pero ahora ya no va. Solo sale de casa una o dos veces a la semana, y ha reducido las videollamadas con su hija Laura de diarias a semanales porque “le da pereza prepararlas".
+</li>
+            <li><strong>Autoestima y sentido de vida:</strong> Manolo siente que ya no es útil para nada y que es una carga para los demás. Antes de la muerte de Carmen y de su caída, solía colaborar como voluntario en la iglesia repartiendo alimentos, pero ahora se siente inútil.
+</li>
+            <li><strong>Ansiedad y miedos:</strong> Tiene muchos miedos, como el miedo a caerse de nuevo, el miedo a una hipoglucemia nocturna sin nadie que le ayude, y el miedo a no oír una emergencia como un incendio o una intrusión.
+</li>
+            <li><strong>Necesidad de interacción social:</strong> Manolo necesita interacción con otras personas, conversaciones que le llenen, compañía y actividades que le den alegría y sentido a sus dias. Necesita relaciones que vayan más allá del cuidado funcional, necesita alguien con quien pueda hablar y sentirse realizado.
+</li>
+        </ul>
+    </div>
+
+    <div class="tarjeta">
+        <h3><i class="fas fa-shield-alt"></i> 5. Necesidades de Seguridad</h3>
+        <p>En cuanto a la seguridad, vivir solo con sordera profunda, diabetes y antecedentes de caídas genera necesidades específicas. Manolo necesita un sistema de alertas visuales y vibratorias para detectar emergencias, como un <strong>Sistema TELPES</strong> adaptado a Manolo. También necesita un sensor de caídas, barras de apoyo en el baño y el pasillo, y una iluminación automática nocturna con sensores de movimiento.
+.</p>
+        <ul>
+            <li>Es importante que Manolo tenga un plan de emergencia personalizado, con un documento visual plastificado en la nevera que incluya números de emergencia, datos médicos, alergias e instrucciones en pictogramas para que cualquier persona que entre pueda ayudarle.
+</li>
+        </ul>
+    </div>
+</section>
+
+<div class="separador"></div>
+
+<!-- ==================== SERVICIOS ==================== -->
+<section class="seccion fade-in" id="servicios">
+    <div class="seccion-titulo">
+        <h2><i class="fas fa-hand-holding-heart"></i> Servicios Asignados</h2>
+        <p>Servicios ofrecidos a Manolo desde su punto de vista</p>
+    </div>
+
+    <div class="grid-servicios">
+        <div class="tarjeta">
+            <i class="fas fa-home icono-servicio"></i>
+            <h3>Servicio de Ayuda a Domicilio (SAD)</h3>
+            <p>Tengo una auxiliar de hogar que viene a mi casa cinco días a la semana, durante dos horas al día. Esta auxiliar me ayuda con las tareas del hogar y me prepara comidas especiales porque tengo diabetes. También me acompaña cuando voy a comprar cosas o tengo que hacer trámites. La auxiliar sabe comunicarse conmigo mediante pictogramas y conozco los conceptos básicos del Lenguaje de Señas Español (LSE). </p>
+        </div>
+        <div class="tarjeta">
+            <i class="fas fa-user-nurse icono-servicio"></i>
+            <h3>Atención Sanitaria Domiciliaria</h3>
+            <p>En cuanto a mi atención sanitaria en casa, una enfermera viene a visitarme cada tres meses para controlar mi nivel de azúcar en la sangre que tengo, también paraver cómo estoy con la insulina y curarme cualquier herida que haya podido tener. Y además de todo eso, un fisioterapeuta viene una vez a la semana para ayudarme a rehabilitar mi muñeca, a mejorar mi equilibrio y a prevenir posibles caídas</p>
+        </div>
+        <div class="tarjeta">
+            <i class="fas fa-brain icono-servicio"></i>
+            <h3>Apoyo Psicosocial</h3>
+            <p>También tengo apoyo psicosocial. Una psicóloga especializada en ayudar a personas que están pasando por un duelo como ess mi caso o que están envejeciendo,  viene a verme una vez a la semana. Ella se adapta a  mi forma de  comunicación  lo cual me hace sentir agusto con ella para hablar sin  problema. Ádemas una trabajadora social me visita cada quince días  para ver si estoy bien  y ayudarme a coordinar los recursos de la comunidad y a gestionar prestaciones a las que tengo derecho y yo  no sabia paraa nada. Además, tengo un programa de voluntariado que  vienen personas maravillosas que me acompaña dos tardes a la semana.
+.</p>
+        </div>
+        <div class="tarjeta">
+            <i class="fas fa-bell icono-servicio"></i>
+            <h3>Teleasistencia (TELPES)</h3>
+            <p>Por último, tengo un servicio de teleasistencia especializado para personas con discapacidad auditiva. Este servicio me permite recibir alertas por vibración o visuales, y tengo un sensor que detecta si me caigo. El servicio también se integra con mi glucómetro continuo y puedo hacer videollamadas de emergencia con un intérprete de Lenguaje de Señas Español. Además, tengo un contacto diario programado con el servicio para asegurarme de que estoy bien.
+</p>
+        </div>
+    </div>
+</section>
+
+<div class="separador"></div>
+
+<!-- ==================== PIA DETALLADO ==================== -->
+<section class="seccion fade-in" id="pia-detallado">
+    <div class="seccion-titulo">
+        <h2><i class="fas fa-book-medical"></i> PIA Detallado</h2>
+        <p>Plan estructurado en 5 partes — pulsa cada sección para expandir y obtener más información</p>
+    </div>
+
+    <!-- PARTE 1: VALORACIÓN INTEGRAL -->
+    <div class="acordeon">
+        <button class="acordeon-btn" onclick="toggleAcordeon(this)">
+            <span><i class="fas fa-stethoscope"></i> Parte 1 · Valoración Integral</span>
+            <i class="fas fa-chevron-down flecha"></i>
+        </button>
+        <div class="acordeon-contenido">
+            <div class="acordeon-inner">
+                <p>La valoración de Manolo se ha completado con instrumentos/herramientas  adaptados a su discapacidad auditiva (sordera). Y los cuestionarios necesarios se han administrado en formato visual para su comprensión y con apoyo de intérprete de Lengua de Señas Española cuando ha sido necesario.</p>
+
+                <h4><i class="fas fa-walking"></i> Índice de Barthel — Actividades Básicas de la Vida Diaria (ABVD)</h4>
+                <p><strong>Puntuación: 85/100</strong> — Lo que indica una dependencia leve.
+
+</p>
+                <ul>
+                    <li><strong>Alimentación (10/10):</strong> Independiente. Come solo pero a veces se salta comidas.</li>
+                    <li><strong>Baño (0/5):</strong> Necesita supervisión porque tiene miedo de resbalarse. Y la ducha no tienen barras/agarraderas.</li>
+                    <li><strong>Vestido (10/10):</strong> Independiente, pero le cuesta con los botones pequeños.</li>
+                    <li><strong>Aseo personal (5/5):</strong> Independiente.</li>
+                    <li><strong>Continencia urinaria (10/10):</strong> Continente.</li>
+                    <li><strong>Continencia fecal (10/10):</strong> Continente.</li>
+                    <li><strong>Uso del WC (10/10):</strong> Independiente pero no consta de barras/agarraderas.</li>
+                    <li><strong>Transferencias (15/15):</strong> Independiente, pero es inseguro al levantarse se sillas bajas.</li>
+                    <li><strong>Deambulación (10/15):</strong> Camina solo en casa, pero con inseguridad y miedo a caer. No usa bastón.</li>
+                    <li><strong>Subir escaleras (5/10):</strong> Sube con apoyo en barandilla y lentitud. Vive en 3ºB con ascensor (funciona normalmente).</li>
+                </ul>
+
+                <h4><i class="fas fa-tasks"></i> Escala de Lawton y Brody — Actividades Instrumentales (AIVD)</h4>
+                <p><strong>Puntuación: 4/8</strong> — Lo que indica una dependencia moderada en AIVD</p>
+
+                <ul>
+                    <li><strong>Uso del teléfono (0/1):</strong> No puede usar teléfono convencional por su sordera. Usa una tablet con videollamada y texto, pero necesita ayuda. </li>
+                    <li><strong>Compras (0/1):</strong> Ha dejado de ir a comprar cosas solo por miedo a caer y a no comunicarse correctamente.</li>
+                    <li><strong>Preparación de comidas (0/1):</strong> Calienta comida precocinada, pero no prepara comidas completas.</li>
+                    <li><strong>Cuidado del hogar (1/1):</strong> Realiza tareas básicas, pero la limpieza profunda le resulta difícil.</li>
+                    <li><strong>Lavado de ropa (1/1):</strong> Usa la lavadora de forma básica y con ayuda de pictogramas.</li>
+                    <li><strong>Transporte (1/1):</strong> Usa transporte público con dificultad. Prefiere usar taxi.</li>
+                    <li><strong>Medicación (0/1):</strong> Necesita supervisión porque confunde horarios y dosis de insulina.</li>
+                    <li><strong>Finanzas (1/1):</strong> Gestiona su dinero con normalidad.</li>
+                </ul>
+
+                <h4><i class="fas fa-brain"></i> SPMSQ (Short Portable Mental Status Questionnaire) — Pfeiffer</h4>
+                <p><strong>Puntuación: 1 error/10</strong> — lo que indica un funcionamiento cognitivo normal</p>
+                <p>Manolo presenta capacidades cognitivas preservadas. El error fue el de restar de 3 en 3 desde 20 (dijo 20, 17, 13). Manolo dispone de orientación espacio-temporal. En cuanto a la memoria inmediata y reciente, la mantiene. La capacidad de tomar decisiones y de juicio aguantan.</p>
+
+                <h4><i class="fas fa-people-arrows"></i> Valoración Socio-familiar (Escala de Gijón modificada)</h4>
+                <p><strong>Puntuación: 14/25</strong> — Lo que indica un riesgo social intermedio</p>
+                <ul>
+                    <li><strong>Situación familiar:</strong> Vive solo, con contacto semanal con su hija en Barcelona y recibe visitas de vez en cuando de su hermano en Madrid.
+. Hermano Pedro en Madrid.</li>
+                    <li><strong>Relaciones sociales:</strong> Red social bastante reducida.</li>
+                    <li><strong>Apoyo red social:</strong> Solo apoyo familiar puntual.</li>
+                    <li><strong>Situación económica:</strong> Pensión contributiva de jubilación y la pensión de viudedad. Vivienda en propiedad.</li>
+                    <li><strong>Datos de la vivienda:</strong> Piso de 75m², 3ºB con ascensor (se suele estropear).Estado aceptable en general y necesita adaptaciones para la accesibilidad y seguridad de Manolo.</li>
+                </ul>
+
+                <h4><i class="fas fa-notes-medical"></i> Valoración Médica</h4>
+                <ul>
+                    <li><strong>Diabetes mellitus tipo 1:</strong>
+Le fue diagnosticada hace 15 años (a los 60 años de Manolo) con la HbA1c actual: 7.8%. Tratamiento con insulina basal. Glucómetro continuo.
+Necesita control diario con glucometro.
+
+
+<li>
+</strong>Normoglucemia</strong>
+Normal: En ayuna lo suyo es entre 70-100 mg/dl. Durante el día, que no pase de 140.
+</strong>Hipoglucemia</strong>
+Si baja de 55-65 ya se considera bajo, da igual si es en ayunas o a lo largo del dia.
+
+</strong>Hiperglucemia</strong>
+En ayunas se considera alto si esta entre 100 y 130 mas o menos. Y por el día, si sube a 160-180 ya hay que vigilarlo.
+<li>
+
+
+
+</li>
+                    <li><strong></strong> Tiene el tema de la sordera (hipoacusia neurosensorial severa bilateral). Básicamente es que tiene una perdida de mas de 80dB en los dos oídos, por eso no oye casi nada</li>
+                                     <li><strong>Padece de déficit de vitamina D:</strong> Por ello se le receta Calcifediol 0.266mg cada 15 días.</li>
+                    <li><strong>Fractura de colles muñeca izquierda:</strong> Hace 6 meses tuvo una caída en el domicilio. La cual fue tratada con yeso durante unas 6 semanas. Manolo actualmente se encuentra en rehabilitación.</li>
+                    <li><strong>Artrosis leve rodilla derecha.</strong></li>
+                    <li><strong>Alergias:</strong> Penicilina.</li>
+                </ul>
+
+                <h4><i class="fas fa-house-chimney-crack"></i> Valoración Ambiental del Domicilio</h4>
+                <p>Valoración realizada por técnico especialista ATBT:</p>
+                <ul>
+                    <li><i class="fas fa-exclamation-triangle" style="color:#e67e22;"></i> <strong>Baño:</strong> Ducha sin agarraderas ni barras, sin alfombrilla ni plato de ducha antideslizante, y sin asiento de ducha. <span class="badge">Riesgo alto — Intervención urgente</span></li>
+                    <li><i class="fas fa-exclamation-triangle" style="color:#e67e22;"></i> <strong>Pasillo:</strong> Cuenta con dos alfombras que no están fijadas al suelo, sumándole una iluminación insuficiente. <span class="badge">Riesgo alto</span></li>
+                    <li><i class="fas fa-exclamation-circle" style="color:#f39c12;"></i> <strong>Cocina:</strong> La cocina cuenta con fogones de gas sin detectores de gas. <span class="badge">Riesgo medio</span></li>
+                    <li><i class="fas fa-exclamation-circle" style="color:#f39c12;"></i> <strong>Dormitorio:</strong> Cama a una altura un poco elevada y sin barras laterales en caso de caídas, mesilla con esquinas sin protección (posibles daños por las puntas de las esquinas), y tampoco dispone de una luz nocturna. <span class="badge">Riesgo medio</span></li>
+                    <li><i class="fas fa-check-circle" style="color:#27ae60;"></i> <strong>Salón:</strong> El salón cuenta con un espacio amplio y organizado, también esta bien iluminado y sin obstáculos aparentes. El sofá esta a una altura adecuada para levantarse y sentarse sin problemas.</li>
+                    <li><i class="fas fa-check-circle" style="color:#27ae60;"></i> <strong>Acceso:</strong> Edificio con ascensor (aunque rara vez se estropea), cuenta con rampas en portal. Acceso accesible para Manolo.</li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- PARTE 2: OBJETIVOS -->
+    <div class="acordeon">
+        <button class="acordeon-btn" onclick="toggleAcordeon(this)">
+            <span><i class="fas fa-bullseye"></i> Parte 2 · Objetivos Generales</span>
+            <i class="fas fa-chevron-down flecha"></i>
+        </button>
+        <div class="acordeon-contenido">
+            <div class="acordeon-inner">
+                <h4><i class="fas fa-flag"></i> Objetivos Generales del Plan Individualizado de Manolo</h4>
+                <ul>
+                    <li>Potenciar la <strong>autonomía</strong> de Manolo en su casa, para que dependa menos de los demás en las actividades diarias.</li>
+                    <li>Para lograr esto, se busca adaptar su hogar para que sea más seguro. Esto incluye tecnología que lo ayude en su vida diaria y planes de emergencia adaptados a su condición de sordera.</li>
+                    <li>También se busca mejorar su <strong>bienestar emocional</strong>. Esto pasa para ayudarle a superar su duelo por Carmen, disminuir su sensación de soledad y encontrar un nuevo propósito de vida.</li>
+                    <li>Otro objetivo es ayudar a Manolo con el <strong>control de su diabetes</strong> y con la <strong>prevención de posibles caídas</strong>, reduciendo episodios de emergencia por descompensación  glucémica y el riesgo de futuras caídas.</li>
+                    <li>Por ultimo se pretende facilitar su <strong>comunicación y participación social</strong> dPara esto, se aprovecharán sus habilidades en Lengua de Señas (LSE), uso de pictogramas y tecnología. El objetivo es ayudarlo a salir de su situación de aislamiento actual.</li>
+                </ul>
+
+                <h4><i class="fas fa-chart-line"></i> Objetivo 1 — Autonomía Doméstica</h4>
+                <div class="indicador-grupo">
+                    <p><strong>1.1:</strong> Manolo podrá preparar al menos 5 comidas equilibradas a la semana, adecuadas para su dieta diabética. Utilizará recetas con pictogramas en la cocina y no necesitará ayuda externa.</p>
+                                        
+                    <p><strong>1.2:</strong> Cocinar tiene un impacto directo en su salud, ya que come de manera más saludable. Esto también mejora cómo se siente consigo mismo, al poder cuidar de sí mismo. Además, le da un propósito cada día.</p>
+                    <p><strong>1.3:</strong> En 3 meses, Manolo cocinará 5 comidas a la semana.
+
+En 6 meses, cocinará al menos 10 comidas a la semana.
+
+Revisará su progreso cada mes con la auxiliar y cada 3 meses con la dietista.</p>
+                </div>
+
+                <h4><i class="fas fa-chart-line"></i> Objetivo 2 — Control de la Diabetes</h4>
+                <div class="indicador-grupo">
+                    <p><strong>2.1:</strong> La idea principal es echarle una mano a Manolo para que baje su nivel de azúcar en sangre, que ahora mismo lo tiene en 7.8%, y dejarlo en menos de 7.0%. También queremos que, al menos el 75% de las veces que se mida el azúcar al día, esté en el rango normal (entre 80 y 180 mg/dL), teniendo en cuenta como está él ahora mismo. Para conseguir esto, vamos a enseñarle bien como manejar su diabetes, vigilar que no se olvide de la medicación y ayudarle a que coma un poco más sano.
+</p>
+                   
+                    <p><strong>2.2:</strong> El nivel de azúcar de Manolo la verdad que ya está bastante cerca del objetivo. Si mejora un poco el tema de la alimentación, se toma las medicinas como toca y hace algo de ejercicio suave (aunque sea caminar), es muy realista pensar que puede bajar esos niveles sin mucho problema.</p>
+                                        <p><strong>2.3:</strong> Queremos que en tres meses el azúcar de Manolo esté ya por debajo del 7.2% y que a los seis meses baje del 7.0%. Lo más importante aquí es ir con cuidado para que no tenga ningún susto con bajones graves de azúcar (hipoglucemias) durante todo este tiempo.
+</p>
+                </div>
+
+                <h4><i class="fas fa-chart-line"></i> Objetivo 3 — Prevención de Caídas y Seguridad</h4>
+                <div class="indicador-grupo">
+                    <p><strong>3.1:</strong> Queremos eliminar los peligros en el hogar de Manolo y hacer todas las adaptaciones necesarias para que sea un lugar seguro. También queremos que Manolo siga las reglas para evitar caídas, como usar zapatos adecuados, encender las luces y no apurarse.
+.</p>
+                    
+                    <p><strong>3.2:</strong> Las adaptaciones son fáciles de hacer, como instalar barras y luces, y ya están aprobadas. Manolo está dispuesto a colaborar y entiende la importancia de hacerlo después de su última caída.</p>
+                                        <p><strong>3.3:</strong> Queremos que las adaptaciones en el hogar de Manolo estén listas en dos semanas y que él siga las reglas para evitar caídas en un mes. También queremos que no tenga caídas en seis meses y que su puntaje en la prueba de Tinetti sea de al menos 23 en seis meses.
+</p>
+                </div>
+
+                <h4><i class="fas fa-chart-line"></i> Objetivo 4 — Bienestar Emocional y Duelo</h4>
+                <div class="indicador-grupo">
+                    <p><strong>4.1:</strong> Queremos ayudar a Manolo a reducir su nivel de depresión, que ahora está en 7, a menos de 5. Para lograr esto, vamos a darle apoyo psicológico especializado, hacer actividades con propósito y ayudarlo a reactivar sus relaciones sociales.
+</p>
+                                        <p><strong>4.2:</strong> La depresión de Manolo es porque está triste y solo. Con apoyo psicológico, compañía y actividades significativas, esperamos que se sienta mejor.</p>
+                                       <p><strong>4.3:</strong>  Queremos que el nivel de depresión de Manolo sea de menos de 6 en dos meses y de menos de 5 en cuatro meses. Si no mejora en tres meses, lo derivaremos a un psiquiatra para que evalúe si necesita tratamiento con medicamentos.
+.</p>
+                </div>
+
+                <h4><i class="fas fa-chart-line"></i> Objetivo 5 — Comunicación y Participación Social</h4>
+                <div class="indicador-grupo">
+                    <p><strong>5.1:</strong> Queremos que Manolo vuelva a hacer al menos dos actividades sociales a la semana fuera de su hogar, como ir al centro de mayores, a la parroquia o dar paseos con alguien. También queremos que mantenga contacto con su hija Laura y su hermano Pedro de manera regular.</p>
+                    
+                    <p><strong>5.2:</strong> Manolo solía tener una vida social activa, pero ahora necesita ayuda para superar su miedo a salir y las barreras para comunicarse. Hay recursos en la comunidad que pueden ayudarlo.</p>
+                                        <p><strong>5.3:</strong> 1 salida semanal acompañada en el mes 1. 2 actividades semanales en el mes 3 (al menos 1 sin acompañante). Contacto semanal con Laura estable desde el mes 1. Satisfacción social ≥6/10 en mes 3, ≥7/10 en mes 6.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PARTE 3: INTERVENCIONES -->
+    <div class="acordeon">
+        <button class="acordeon-btn" onclick="toggleAcordeon(this)">
+            <span><i class="fas fa-tools"></i> Parte 3 · Tabla de Intervenciones</span>
+            <i class="fas fa-chevron-down flecha"></i>
+        </button>
+        <div class="acordeon-contenido">
+            <div class="acordeon-inner">
+                <p>Tabla detallada de todas las intervenciones del PIA. Incluye la integración del servicio TELPES, adaptado especialmente para Manolo. Cada intervención se justifica de forma personalizada según su situación clínica, social y funcional.</p>
+                <div class="tabla-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Intervención</th>
+                                <th>Objetivo</th>
+                                <th>Frecuencia</th>
+                                <th>Profesional</th>
+                                <th>Justificación para Manolo</th>
+                                <th>Rol Profesional (actividades educativas)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Ayuda en preparación de comidas</strong></td>
+                                <td>Autonomía alimentaria y control glucémico</td>
+                                <td>5 días/semana (1h) L,M,X,J,V
+12:00 - 13:00</td>
+                                <td>Auxiliar SAD</td>
+                                <td>Manolo dejó de cocinar tras la viudez y se alimenta de precocinados, descontrolando su diabetes (HbA1c 7.8%). Necesita recuperar confianza y aprender a cocinar recetas diabéticas sencillas para una persona, con recetario visual y pictogramas.</td>
+
+                                <td> <strong>ACTIVIDADES EDUCATIVAS</strong>
+Mediante pictograms ARASAAC, la profesional ayudará a Manolo en las preparaciones de las comidas de forma que esté pendiente de Manolo para enseñarle a cocinar en un futuro por sí solo, enseñándole a preservar su autonomía. También llevará la supervisión diaria de que Manolo tome sus pastillas y lleve una buena dieta alimenticia, controlando asi tambien su diabetes tipo 1.
+                            </tr>
+                            <tr>
+                                <td><strong>Limpieza y mantenimiento del hogar</strong></td>
+                                <td>Entorno higiénico y seguro</td>
+                                <td>3 días/semana (1h) L,X,V 
+13:00-14:00</td>
+                                <td>Auxiliar SAD</td>
+                                <td>La secuela de la fractura de muñeca limita las tareas que requieren fuerza de prensión (fregar, escurrir). Un hogar limpio y ordenado reduce riesgo de caídas y mejora la autoestima de Manolo (le avergüenza tener visitas «con la casa sucia»).</td>
+                                <td><strong> ACTIVIDADES EDUCATIVAS</strong>
+  La profesional se encargará de mantener un entorno limpio y seguro (Fregar, barrer, desinfectar glucometro...) todo esto con la idea de esneñarle a Manolo las formas de realizarlas para que en un futuro Manolo sea capaz de hacerlas por si mismo.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Acompañamiento en compras y gestiones</strong></td>
+                                <td>Recuperar autonomía en el exterior</td>
+                                <td>2 días/semana (1h) L,V
+14:00 - 15:00</td>
+                                <td>Auxiliar SAD</td>
+                                <td>Manolo ha dejado de salir solo por miedo a caer y a no poder comunicarse. El acompañamiento progresivo busca devolverle seguridad: primero acompañado, luego supervisado a distancia, finalmente autónomo en comercios cercanos conocidos.</td>
+                                <td><strong>ACTIVIDADES EDUCATIVAS</strong>
+La profesional acompañará a Manolo en la gran mayoría de salidas programadas para realizar las compras, llevando consigo una tarjeta de comunicación o la libreta de Manolo para la comunicación efectiva.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Control de glucemia y supervisión insulina</strong></td>
+                                <td>HbA1c ≤7.0%, 0 hipoglucemias graves</td>
+                                <td>1 visita/semana (1h) miércoles
+16:00-17:00
+</td>
+                                <td>Enfermera</td>
+                                <td>Manolo confunde horarios de insulina y no siempre oye las alarmas del Freestyle Libre. La enfermera descarga datos, ajusta pautas (en coordinación con endocrino), y refuerza educación diabetológica con material visual. También supervisa la alimentación real vs. prescrita.</td>
+                                <td><strong>ACTIVIDADES ASISTENCIALES Y EDUCATIVAS</strong>La profesional llevará el control glucémico de Manolo realizando una visita semanal (todos los miercoles) y supervisará si Manolo recibe su dosis de insulina diaria. Todo ello mediante un registro de dosis que rellenará la profesional una vez realize el chequeo. 
+Ademas de todo eso la enfermera se encargará de realizar una educacion diabetologica para Manolo, para que sepa todo lo necesario para su autocuidado en base a la Diabetes.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Preparación y supervisión de pastillero</strong></td>
+                                <td>Constancia en pastillero</td>
+                                <td>1 vez/Semana</ miercoles
+16:00 - 17:00td>
+                                <td>Enfermera</td>
+                                <td>Con 5 medicamentos diferentes, Manolo necesita un pastillero visual (colores por franja horaria, pictogramas de sol/luna) y verificación semanal de que ha tomado toda la medicación correctamente.</td>
+                                <td><strong>ACTIVIDADES EDUCATIVAS</strong>La profesional se encargara de la preparacion del pastillero de Manolo y supervisara mediante el autoregistro si Manolo toma debidamente sus pastillas o no.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Rehabilitación funcional: muñeca y equilibrio</strong></td>
+                                <td>Mejorar fuerza de prensión y equilibrio (Tinetti ≥23)</td>
+                                <td>1 sesión/semana (45 min) jueves
+17:00 - 18:00</td>
+                                <td>Fisioterapeuta</td>
+                                <td>La fractura de muñeca de Manolo dejó secuelas de prensión que le limitan en tareas domésticas. El desequilibrio y marcha insegura son factores de riesgo de nueva caída. El programa incluye ejercicios de equilibrio, circuito de marcha segura por el domicilio, y fortalecimiento funcional de miembro superior izquierdo.</td>
+                                <td><strong>ACTIVIDADES REHABILITADORAS</strong>El profesional acudirá 1 vez a la semana para realizar ejercicios rehabilitadores para la musculatura de la muñeca izquierda de Manolo, también realizará ejercicios para fortalecer el equilibrio de Manolo.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Adaptación del domicilio</strong></td>
+                                <td>Eliminar riesgos ambientales identificados</td>
+                                <td>Intervencion puntual con duracion de 2 semanas</td>
+                                <td>Técnico instalador</td>
+                                <td>El domicilio de Manolo tiene riesgos críticos: bañera sin asideros (donde podría volver a caer), alfombras sueltas, cables en el suelo, iluminación deficiente. La adaptación es urgente y es la intervención de mayor impacto inmediato en la prevención de caídas.</td>
+                                <td>El profesional encargado realizara la adaptacion del domicilio eliminando asi riesgos de caidas y heridas en un futura, colocando barras/agarraderas en zona clave, fijando las alfombras al suelo, colocando en el baño suelo antideslizante...</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Terapia psicológica de duelo</strong></td>
+                                <td>Conseguir GDS-15 &lt;5, superar duelo por Carmen</td>
+                                <td>1 sesión/semana (50 min) viernes
+18:00 - 19:00</td>
+                                <td>Psicóloga clínica</td>
+                                <td>Manolo no ha elaborado el duelo por Carmen. Presenta síntomas depresivos (GDS-15: 7), pérdida de interés, sentimiento de vacío, verbalización de «no servir para nada». La terapia se adapta a comunicación visual: uso de pizarra, pictogramas emocionales, escritura terapéutica, y LSE básica por parte de la profesional.</td>
+                                <td> <strong>ACTIVIDADES ASISTENCIALES</strong>La profesional acudirá 1 vez a la semana para realizar sesiones específicas para que Manolo supere el duelo por Carmen con el objetivo de que se sienta mas aliviado y feliz,</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Acompañamiento social y voluntariado</strong></td>
+                                <td>≥2 actividades sociales/semana, reducir soledad</td>
+                                <td>2 tardes/semana (2h) sabado Y domingo 17:00 - 19:00</td>
+                                <td>Voluntario ATBT formado</td>
+                                <td>Manolo necesita compañía significativa que vaya más allá del cuidado funcional: conversar, pasear, jugar al dominó, acompañarle al centro de mayores. El voluntario habla LSE básica y comparte intereses con Manolo (fútbol, cocina, paseos por el Retiro).</td>
+                                <td><strong>ACTIVIDADES ASISTENCIALES</strong>Mediante los voluntarios/as que acudan a ver a Manolo, realizarán actividades de ocio, como juegos de mesa, pasear… y algunos enseñarán un poco más de LSE a Manolo.
+                            </tr>
+                            <tr>
+                                <td><strong>Seguimiento social y coordinación de recursos</strong></td>
+                                <td>Garantizar acceso a prestaciones y red de apoyo</td>
+                                <td>Cada 15 dias</td>
+                                <td>Trabajadora social</td>
+                                <td>Manolo tiene derecho a prestaciones de la Ley de Dependencia (Grado I) que no estaba recibiendo. La TS coordina SAD, TELPES, rehabilitación, gestiona copagos, facilita el contacto con el centro de mayores y media con la familia para mantener la red de apoyo activa.</td>
+                                <td><strong> ACTIVIDADES ASISTENCIALES</strong>La profesional se encargará de que Manolo esté al corriente de las prestaciones y ayudas a las que tiene derecho y, en su caso, de realizar la solicitud para tenerlas. Además, coordinará todo tipo de recursos sociales o económicos para la ayuda diaria de Manolo.
+                            </tr>
+                            <tr>
+                                <td><strong>TELPES adaptado para persona sorda</strong></td>
+                                <td>Seguridad 24h con las alertas vibratorias/visuales</td>
+                                <td>24/7</td>
+                                <td>Operadores TELPES + intérprete LSE guardia</td>
+                                <td>El servicio estándar de teleasistencia no sirve para Manolo porque se basa en comunicación por voz. El TELPES incluye: pulsera vibratoria con sensor de caídas, alertas luminosas en todas las habitaciones, comunicación por videollamada con transcripción y opción de intérprete LSE, integración con su glucómetro para alertas de hipoglucemia, y contacto diario programado de comprobación.</td>
+                                <td>Los profesionales se encargarán de la instalación del terminal TELPES, más la adaptación y enseñanza del uso de la pulsera vibratoria, la cual también sirve para prevenir caída, también la instalación de sensores luminosos en zonas claves, y por último se le enseñará a Manolo el funcionamiento de la app TELPES 
+                            </tr>
+                            <tr>
+                                
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PARTE 4: CRONOGRAMA Y SEGUIMIENTO -->
+    <div class="acordeon">
+        <button class="acordeon-btn" onclick="toggleAcordeon(this)">
+            <span><i class="fas fa-calendar-alt"></i> Parte 4 · Cronograma e Indicadores de Seguimiento</span>
+            <i class="fas fa-chevron-down flecha"></i>
+        </button>
+        <div class="acordeon-contenido">
+            <div class="acordeon-inner">
+                <h4><i class="fas fa-clock"></i> Fase de Implantación Inicial</h4>
+
+                <div class="indicador-grupo">
+                    <h5><i class="fas fa-calendar-week"></i> Primera Y Segunda semana: Arranques y Adaptaciones Necesarias</h5>
+                    <ul>
+                        
+                        <li>Se instalan barras de apoyo en el baño y el pasillo con la ayuda de un tecnico municipal y un trabajador de ATBT</li>
+                        <li>La bañera se cambia por un plato de ducha con un asiento abatible para hacerlo más fácil de usar y más seguro para Manolo.</li>
+                        <li>Se quitan alfombras sueltas, se fijan cables para evitar caídas y se instalan luces nocturnas con sensor de movimiento para mejorar la iluminación, además de instalar detectores de gas en la cocina y un detector de humo con alerta luminosa para mejorar la seguridad del hogar y de Manolo </li>
+                        <li>Se contrata el servicio TELPES, que incluye la instalación del terminal, una pulsera vibratoria anticaída y sensores luminosos y una prueba de todos los sistemas con Manolo</li>
+                        <li>La enfermera hace un chequeo completo de Manolo, prepara un pastillero para que tome sus medicamentos y saca los datos del glucómetro para ver cómo está su azúcar en sangre .</li>
+                        <li>Se hace la primera sesión de fisioterapia en la cual realizan la prueba llamada Tinetti para ver como andaba y se crea un plan de ejercicios adaptado a Manolo</li>
+                        <li>Alazne (Auxiliar SAD) conoce a Manolo y establecen rutinas para que las cosas sean más fáciles para ambos</li>
+                        <li>Se ponen pictogramas ARASAAC en lugares importantes como la cocina, el baño y la entrada, esto ayuda a Manolo a comunicarse más rápidamente en momentos de necesidad o emergencia.</li>
+                        <li>Se instala una mirilla digital en la puerta de la entrada (problemas visuales posibles debido a la diabetes) y de paso se revisa la cerradura de la puerta</li>
+                    </ul>
+                </div>
+
+                <div class="indicador-grupo">
+                    <h5><i class="fas fa-calendar-week"></i> Tercera y Cuarta semana: Consolidación de Servicios</h5>
+                    <ul>
+                        <li>Empieza la terapia psicológica semanal con una sesión para conocerse y hablar un poco. Esto ayudará a Manolo a sentirse mejor y a hablar sobre sus sentimientos.</li>
+
+                       <li>Se comienza un porgrama de acompañamiento social con la presentacon del voluntariado y una primera acitidad juntos para empezar.<li>
+
+                       </li>Manolo realiza su primera salida acompañada para comprar al supermercado cercano.</li>
+
+                       <li>Se lleva a cabo la primera sesión de educacion diabetológica visual.<li>
+
+                      <li>Se instala un recetario visual y con la ayuda de Alaznde preparn la primera receta juntos<li>
+
+                       <li>Se contacta con el centro de mayores del barrio para explorar la reincorporacion de Manolo al mismo.<li>
+                       <li>Se realiza una videollama conjunta con su hija Laura para presentar el PIA y establecer una ruitina de contacto.<li>
+                    </ul>
+                </div>
+
+                <div class="indicador-grupo">
+                    <h5><i class="fas fa-calendar-week"></i> Segundo y Tercer mes: Desarrollo y Ajuste</h5>
+                    <ul>
+                        <li>Se realiza una evaluacion intermedia de todos los objetivos.</li>
+
+
+                        <li> Manolo empieza a prepara 1-2 comidas solo por semana, lo que aumento su autonomía.<li>
+                        
+                         <li>Manolo realiza su primera viita acompañda al centro de mayores donde juega al dominó.<li>
+ 
+                         <li>Si la HbA1c de Manolo no mejora segun lo esperdo, se ajusta su patron de insulina en cordinacion con la enfermera y el endocrino.<li>
+
+                         <li>Se solucionan alguno problemas con el sisteam TELPES. 
+Esto incluye arreglar posbibles falsas alrmas y hacr ajustes de sensibilidad del sistema.<li>
+
+                          <li>Se realiza la segunda administracion del GDS-15 visual (mediante pictogramas) para evaluar la evolucion del estado animico de Manolo.<li>
+
+                          <li>Se inicia una reduccion progresiva del acompañamiento a compras, preparacion de comidas.. permitiendo asi que Manolo sea capaz por si mismo.<li>
+
+                    </ul>
+                </div>
+
+                <h4><i class="fas fa-chart-bar"></i> Reevaluación Trimestral — Indicadores de Seguimiento Personalizados</h4>
+                <p>Cada 3 meses, el equipo de ATBT revisa detalladamente el plan de Manolo. Utilizan indicadores especiales para saber cómo está progresando. Estos indicadores se miden de diferentes maneras, con</strong>, <strong>autoinformes visuales</strong> (como pictogramas o las escalas de caritas), con <strong>registros objetivos</strong> (como datos del glucómetro o logs TELPES) y <strong>escalas validadas adaptadas a Manolo</strong> (Lawton & Brody, Barthel...).</p>
+
+                <!-- INDICADOR AUTONOMÍA DOMÉSTICA -->
+                <div class="indicador-grupo">
+                    <h5><i class="fas fa-utensils"></i> Área 1: Autonomía Doméstica</h5>
+                    <ul>
+                        <li><strong>El número de comidas que Manolo prepara solo por semana.</strong> El objetivo es que prepare al menos diez comidas sin ayuda cada semana antes de que termine el sexto mes. Se registra en un diario alimentario visual con pegatinas.</li>
+                        <li><strong>Si Manolo cocina platos calientes solo</strong>  El objetivo es que cocine al menos cinco platos calientes por semana. Esto muestra su confianza en la cocina después del duelo.
+</li>
+                        <li><strong>Si Manolo pone la lavadora y tiende la ropa sin ayuda.</strong> El objetivo es que lo haga sin supervisión. Se sigue con pictogramas de instrucciones para la lavadora.
+</li>
+                        <li><strong>Si Manolo limpia tareas ligeras sin ayuda</strong> como barrer, recoger y fregar platos. Se hace un check-list semanal con la ayuda de Alazne..</li>
+                        <li><strong>Si Manolo hace la compra básica solo.</strong> El objetivo es que vaya a tiendas que estén a menos de trescientos metros sin necesidad de que lo acompañen. Se registra en un calendario visual.</li>
+                                               <li><strong>Puntuación de Manolo en la escala de Barthel</strong> (objetivo: ≥90/100 en el sexto mes).</li>
+                        <li><strong>Puntuación de Manolo en la escala de Lawton y Brody</strong> (objetivo: ≥6/8 en el sexto mes).</li>
+                    </ul>
+                </div>
+
+                <!-- INDICADOR DIABETES -->
+                <div class="indicador-grupo">
+                    <h5><i class="fas fa-syringe"></i> Área 2: Control de la Diabetes Tipo 1</h5>
+                    <ul>
+                        <li><strong>% de glucemias en rango (80-180 mg/dL)</strong> (objetivo: ≥75%).
+                        <li><strong>HbA1c trimestral</strong> (objetivo: ≤7.0% en el sexto mes). Analitica en el centro de salud.</li>
+                        <li><strong>Numero de episodios de hipoglucemia (&lt;55-65 mg/dL) x trimestre</strong> (objetivo: 0 graves, &lt;3 leves).</li>
+                        <li><strong>Número de episodios de hiperglucemia (&gt;180 mg/dL) x trimestre</strong> (objetivo: <25% del tiempo en rango). Tener 0 episodios por encima de 130 es irreal en el tipo 1</li>
+                        <li><strong>¿Se administra Manolo la insulina de forma autonoma?</strong> (objetivo: si, sin recordatorio de auxiliar y mediante registro de dosis) — verificación semanal del pastillero.</li>
+                        <li><strong>¿Registra Manolo diariamente sus glucemias?</strong> (objetivo: si, al menos escaneo 8x/día del sensor) — log del Libre.</li>
+                        <li><strong>¿Realiza Manolo el conteo de raciones de hidratos de carbono de forma correcta?</strong> (objetivo: Si, en todas las comidas principales).</li>
+                        <li><strong>Peso corporal</strong> (objetivo: mantener el IMC de Manolo en 25-27 (estable) ). Realizando un pesaje mensual.</li>
+                    </ul>
+                </div>
+
+                <!-- INDICADOR CAÍDAS -->
+                <div class="indicador-grupo">
+                    <h5><i class="fas fa-exclamation-triangle"></i> Área 3: Prevención de Caídas</h5>
+                    <ul>
+                        <li><strong>El número de caídas en el trimestre</strong> El objetivo es tener cero caídas.</li>
+                        <li><strong>El número de tropiezos o resbalones reportados por trimestre</strong>  El objetivo es tener menos de dos por trimestre..</li>
+                        <li><strong>La puntuación en la escala de Tinetti.</strong> El objetivo es alcanzar como mínimo veintitrés de veintiocho puntos antes de que termine el sexto mes. Se evalúa mensualmente con un fisioterapeuta.
+.</li>
+                        <li><strong> Si Manolo usa las barras de apoyo del baño correctamente</strong> Se observa directamente si lo hace de manera correcta.
+</li>
+                                            <li><strong>Si Manolo usa calzado adecuado en casa, como zapatillas cerradas con suela antideslizante, y no chanclas.</strong> Se observa por un auxiliar</li>
+                        <li><strong>Si Manolo sabe levantarse del suelo si se cae</strong>  Se practica un protocolo con un fisioterapeuta y se hace un simulacro trimestral.
+</li>
+                        <li><strong>Si se han eliminado todos los riesgos ambientales.</strong>  Se hace una check-list de diez ítems, como retirar alfombras, recoger cables, asegurar la iluminación y barras instaladas. Se inspecciona mensualmente por un técnico.
+</li>
+                        
+                    </ul>
+                </div>
+
+                <!-- INDICADOR COMUNICACIÓN / TELPES -->
+                <div class="indicador-grupo">
+                    <h5><i class="fas fa-bell"></i> Área 4: Comunicación y TELPES</h5>
+                    <ul>
+                        <li><strong>El tiempo que Manolo tarda en responder a las alertas de TELPES.</strong> El objetivo es que responda en menos de dos minutos. Se mide por el log del sistema.
+</li>
+                        <li><strong>Si Manolo responde al contacto diario programado de TELPES</strong> El objetivo es que responda al cien por cien de los contactos. Se registra en el log del sistema.
+</li>
+                        <li><strong>El número de falsas alarmas de TELPES por trimestre.</strong>El objetivo es tener menos de cinco falsas alarmas. Se hace un seguimiento técnico.
+</li>
+                        <li><strong>Si Manolo usa los pictogramas ARASAAC en su domicilio. </strong> Se observa si los usa regularmente, a veces o no.
+.</li>
+                        <li><strong>Si Manolo mantiene la práctica de Lengua de Signos Española.</strong> El objetivo es que interactúe al menos una vez a la semana en LSE. Se registra el número de interacciones.
+</li>
+                        <li><strong> Si Manolo usa la aplicación de transcripción en consultas y visitas de forma autónoma.</strong>  El objetivo es que la use sin ayuda.
+</li>
+                        <li><strong>El número de videollamadas con Laura por mes.</strong> El objetivo es tener como mínimo cuatro videollamadas, idealmente ocho. Se registra en el log de la tablet.
+</li>
+                                            </ul>
+                </div>
+
+                <!-- INDICADOR RELACIONES SOCIALES -->
+                <div class="indicador-grupo">
+                    <h5><i class="fas fa-people-arrows"></i> Área 5: Relaciones Sociales de Manolo</h5>
+                    <ul>
+                        <li><strong>El número de interacciones sociales significativas por semana, excluyendo a los profesionales, como familia, amigos, vecinos y centro de mayores.</strong> (excluye profesionales: cuenta familia, amigos, vecinos, centro de mayores)  El objetivo es tener como mínimo cinco interacciones por semana antes de que termine el sexto mes. Se registra en un calendario visual con pegatinas de caras.
+</li>
+                        <li><strong>Si Manolo inicia contactos sociales por iniciativa propia.</strong>  El objetivo es que inicie al menos dos contactos por semana. No solo responde, sino que también llama, escribe o visita.</li>
+                        <li><strong>Si Manolo acude al centro de mayores</strong> El objetivo es que vaya al menos dos veces por semana. Se registra la asistencia del centro.</li>
+                        <li><strong> Si Manolo participa en actividades comunitarias sin acompañante.</strong> El objetivo es que participe al menos una vez por semana antes de que termine el sexto mes.</li>
+                        <li><strong>Si Manolo ha retomado el voluntariado en la iglesia</strong> El objetivo es que vuelva a hacerlo al menos una mañana por semana antes de que termine el sexto mes.</li>
+                        <li><strong>La frecuencia de visitas de su hermano Pedro. </strong> El objetivo es que las visitas sean quincenales y estables. Se coordina con la trabajadora social.
+.</li>
+                                          </ul>
+                </div>
+
+                <!-- INDICADOR SALUD MENTAL — MUY DETALLADO -->
+                <div class="indicador-grupo">
+                    <h5><i class="fas fa-brain"></i> Área 6: Salud Mental (evaluación exhastiva)</h5>
+                    <p style="margin-bottom:.8rem;">Este es el área más importante para seguir a Manolo. Su estado de ánimo afecta a todo lo demás. Para evaluar esto, se utilizan varios instrumentos adaptados a su discapacidad auditiva.</p>
+
+                    <p><strong>6.1 — Escala para evaluar la depresión de Manolo</strong></p>
+                    <ul>
+                        <li><strong>Utilizando la escala GDS-15</strong>  que se ha adaptado para que Manolo pueda entenderla mejor con ayuda de imágenes. El objetivo es que tenga menos de 5 puntos, lo que significa que no hay indicios de depresión. Esta evaluación se hace todos los meses con la ayuda de pictogramas y apoyo de Lengua de Signos Espeola.</li>
+                        <li>Ítem por ítem del GDS-15 adaptado a Manolo, con seguimiento cualitativo:
+                            <ul style="margin-top:.3rem;">
+                                <li><em>A continuación, se evalúan los siguientes aspectos de la Escala GDS-15 adaptada para Manolo:
+¿Está satisfecho con su vida? Manolo dice que está “regular". El objetivo es que diga “bastante” o “sí".</li>
+                                <li><em>¿Ha dejado de hacer cosas que le gustaban? Sí, ha dejado de jugar al dominó, dar paseos y hacer voluntariado. El objetivo es que vuelva a hacer al menos dos de estas actividades.</li>
+                                <li><em>¿Siente que su vida está vacía? Sí, dice que “la casa sin Carmen está muerta". El objetivo es que encuentre al menos tres cosas que le den sentido a su día.
+</li>
+                                <li><em>¿Se aburre con frecuencia? Sí, especialmente por las tardes y fines de semana. El objetivo es encontrar actividades que llenen esos momentos.</li>
+                                                                <li><em>¿Tiene miedo de que le pase algo malo? Sí, tiene miedo de caerse, de tener un problema de azúcar en la sangre o de un incendio sin poder oírlo. El objetivo es que se sienta seguro con el sistema TELPES instalado.</li>
+                                                                <li><em>¿Se siente desamparado? A veces, especialmente de noche. El objetivo es que se sienta apoyado gracias al contacto nocturno con TELPES y su red de apoyo.</li>
+                                <li><em>¿Preferiría quedarse en casa antes que salir? Sí, por miedo a caerse. El objetivo es encontrar un equilibrio entre sentirse seguro en casa y tener una vida activa fuera de casa.</li>
+                                                                <li><em>¿Piensa que es maravilloso estar vivo? Dice que “no lo tiene claro". El objetivo principal es que recupere la alegría de vivir.
+</li>
+                                <li><em>¿Se siente inútil? Sí, dice que “ya no sirve para nada". El objetivo es que vuelva a tener roles significativos, como hacer voluntariado, enseñar recetas o cuidar plantas.</li>
+                                <li><em>¿Se siente lleno de energía? No, dice que “se cansa de todo". Se buscarán causas médicas y se abordará el aspecto anímico.</li>
+                                <li><em>¿Siente que no hay esperanza?  Dice que “no sabe si esto va a mejorar". El objetivo es que pueda ver mejoras concretas mes a mes.
+</li>
+                                <li><em>¿Cree que los demás están mejor que él? Dice que “Pedro tiene a su mujer, Laura tiene su vida...". El objetivo es reducir la comparación negativa con los demás.
+</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <p style="margin-top:1rem;"><strong>6.2 — Indicadores de Ansiedad de Manolo</strong></p>
+                    <ul>
+                        <li><strong>Preocupación excesiva:</strong> ¿Pasa más de una hora al día pensando en “qué pasaría si...". Se evalúa con un autoinforme pictográfico (caritas)
+</li>
+                        <li><strong>Inquietud motora:</strong> Se observa si se levanta y se sienta repetidamente o camina sin rumbo por la casa. (Alazne obserba esto) 
+</li>
+                        <li><strong>Tensión muscular:</strong>Se evalúa el dolor de espalda o cuello, que puede indicar tensión crónica.
+Lo valora el fisioterapeuta.</li>
+                        <li><strong>Insomnio por rumiaciones:</strong> ¿Tarda más de 30 minutos en dormirse o se despierta de madrugada y no puede volver a dormir. Se evalúa con un autoinforme visual
+(Mediante pictogramas).</li>
+                        <li><strong>Evitación:</strong> ¿Evita situaciones o lugares concretos por ansiedad. Se registra semanalmente.
+Mediante el registro semanalan de actividades.</li>
+                    </ul>
+
+                    <p style="margin-top:1rem;"><strong>6.3 — Indicadores de Soledad percibida</strong></p>
+                    <ul>
+                        <li><strong>Escala visual de soledad (1-10 con caritas):</strong> Se le pregunta “¿Cómo de solo te has sentido esta semana” con una escala del 1 al 10 que utiliza caritas. El objetivo es que esté por debajo de 4 en 6 meses.</li>
+                        <li><strong>Sentimiento de vacío:</strong> Se le pregunta si ha tenido la sensación de que falta algo o alguien importante, utilizando un pictograma de una casa vacía vs una casa llena.
+</li>
+                        <li><strong>Exclusión por sordera:</strong> Se le pregunta si se ha sentido excluido de alguna conversación o situación por no oír. El objetivo es que no tenga episodios de exclusión gracias a adaptaciones comunicativas.
+</li>
+                        <li><strong>Añoranza de amor de su vida:</strong> Se le pregunta si ha echado de menos a Carmen, utilizando un pictograma de un corazón roto que se va reparando. Se sigue el proceso de duelo.</li>
+                        <li><strong>Percepción de red de apoyo:</strong>Se le pregunta si siente que hay personas que se preocupan por él, utilizando pictogramas de personas o manos. El objetivo es que sienta que tiene una red de apoyo.
+</li>
+                    </ul>
+
+                    <p style="margin-top:1rem;"><strong>6.4 — Indicadores de Bienestar positivo</strong></p>
+                    <ul>
+                        <li><strong>Escala de ánimo diaria (1-10 con caritas):</strong> Manolo puntúa cada mañana y cada noche en su pizarra utilizando caritas: 😞1 — 😐5 — 😊10. El objetivo es que tenga una media diaria de 6 o más en 3 meses y de 7 o más en 6 meses.
+.</li>
+                        <li><strong>«¿Te has reído hoy?»</strong>. El objetivo es que se ría al menos 5 de 7 días.
+</li>
+                        <li><strong>Percepción de seguridad viviendo solo:</strong> Se le pregunta si se siente seguro en su casa, utilizando una escala del 1 al 10. Con el sistema TELPES instalado, el objetivo es que se sienta seguro.
+</li>
+                        <li><strong>Sentido de propósito:</strong> Se le pregunta si ha hecho algo que le haga sentir útil, utilizando un pictograma de una mano ayudando. El objetivo es que se sienta útil al menos 5 de 7 días.
+</li>
+                        <li><strong>Calidad del sueño:</strong> Se le pregunta si ha descansado bien, utilizando un pictograma de luna o sol. El objetivo es que tenga una buena calidad del sueño.
+</li>
+                                          </ul>
+
+                    <p style="margin-top:1rem;"><strong>6.5 — Métodos de medición adaptados a Manolo</strong></p>
+                    <ul>
+                        <li><strong>Observación directa por profesionales:</strong> Los profesionales observan indicadores conductuales como expresión facial, iniciativa, higiene, alimentación, llanto o aislamiento en la vida de Manolo.</li>
+                        <li><strong>Auto-informes visuales:</strong> Se utilizan pictogramas, emoticonos o escalas visuales para que Manolo pueda expresar cómo se siente.
+</li>
+                        <li><strong>Registros objetivos:</strong>  Se recopilan datos del glucómetro continuo, logs del sistema TELPES, registro de asistencia al centro de mayores y log de videollamadas.</li>
+                        <li><strong>Escalas validadas adaptadas a Manolo:</strong> Se utilizan escalas como la GDS-15 visual/pictográfica, adaptadas para que Manolo pueda entenderlas con ayuda visual o de Lengua de Signos Española.
+</li>
+                        <li><strong>Triangulación:</strong> Cada indicador se evalúa desde al menos dos fuentes para evitar sesgo ( por ejemplo: auto-informe de ánimo mediante pictogramas más la observación de la auxiliar Alaze más una posible llamada a Laura confirmando desde su punto de vista los resultados) para evitar posibles sesgos.</li>
+                    </ul>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PARTE 5: REVISIÓN Y COORDINACIÓN -->
+    <div class="acordeon">
+        <button class="acordeon-btn" onclick="toggleAcordeon(this)">
+            <span><i class="fas fa-users-cog"></i> Parte 5 · Revisión, Coordinación y Participación</span>
+            <i class="fas fa-chevron-down flecha"></i>
+        </button>
+        <div class="acordeon-contenido">
+            <div class="acordeon-inner">
+                <h4><i class="fas fa-sync-alt"></i> Mecanismos de Revisión del PIA</h4>
+                <ul>
+                    <li><strong>Revisión trimestral ordinaria:</strong> el equipo completo se reúne para analizar todo y ajustar lo que sea necesario. El equipo está formado por el coordinador, la enfermera, el fisioterapeuta, la psicóloga, el auxiliar y la trabajadora social.</li>
+                    <li><strong>Revisión extraordinaria:</strong> si pasa algo importante, como una caída, una hospitalización o un cambio en la situación familiar, el equipo se reúne para ver qué hacer. También se reúnen si Manolo lo pide.</li>
+                    <li><strong>Revisión anual global:</strong> se hace un análisis completo de todo con todas las herramientas necesarias y se replantea el plan si es necesario. (SPMSQ, TINETTI, BARTHER, LAWTON, GDS-15)</li>
+                    <li><strong>Micro-seguimiento continuo:</strong> el auxiliar y el coordinador se comunican diariamente a través de una aplicación para hablar de cosas menores, como si Manolo no ha comido o está triste.</li>
+                </ul>
+
+                <h4><i class="fas fa-user-tie"></i> Coordinador del PIA</h4>
+                <p><strong>Elena Martínez Navarro</strong>, Trabajadora Social de ATBT, nº colegiada 28-4521. Elena es la profesional de referencia de Manolo y la responsable de:</p>
+                <ul>
+                    <li>Coordinar a todos los profesionales del equipo.</li>
+                    <li>Ser la persona de contacto para Manolo y su familia.</li>
+                    <li>Convocar y dirigir las reuniones de revisión trimestral.</li>
+                    <li> Gestionar la relación con servicios externos..</li>
+                    <li>Asegurarse de que se comuniquen con Manolo de manera accesible para él.</li>
+                </ul>
+
+                <h4><i class="fas fa-users"></i> El Equipo Multidisciplinar ATBT para Manolo</h4>
+                <div class="tabla-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Profesional</th>
+                             
+                                <th>Función principal</th>
+                                                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Coordinadora / T. Social
+</strong>(Elena Martínez Navarro)</td>
+                                                                <td>Se encarga de la Coordinación PIA y de la gestión de recursos económicos y sociales, de los cuales Manolo podría no tener constancia de su existencia. </td>
+                                                            </tr>
+                            <tr>
+                                <td><strong>Enfermera</strong>
+(Ana López Perez)</td>
+                                
+                                <td>Principalmente de llevar el control diabetes, medicación, educación sanitaria de Manolo en su vida diaria.</td>
+                                                            </tr>
+                            <tr>
+                                <td><strong>Fisioterapeuta</strong>
+(Carlos Ruiz Coque)</td>
+                                
+                                <td>Realiza la rehabilitación, ejercicios de equilibrio y de la prevención de posibles caídas en el futuro de Manolo. </td>
+                                                            </tr>
+                            <tr>
+                                <td><strong>Psicóloga clínica</strong>
+(María Gil Blanco)</td>
+                               
+                                <td>Realiza la terapia de duelo y vela por el bienestar emocional de Manolo.</td>
+                                                            </tr>
+                            <tr>
+                                <td><strong>Auxiliar de hogar (SAD)</strong> 
+(Rosa Luz Gil)</td>
+                                
+                                <td>Se encarga del apoyo doméstico, compras, cocina, acompañamiento diario  (todo ello animando a Manolo para que lo haga por si mismo, potenciando así su autonomía)</td>
+                                                           </tr>
+                                                        <tr>
+                                <td><strong>Voluntaria acompañamiento</strong> (Lucía Alonso Pérez)</td>
+                                
+                                <td>Se encargarán de la compañía, actividades sociales y acompañamientos al exterior con Manolo.</td>
+                                                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h4><i class="fas fa-hand-point-up"></i> Participación de Manolo en su Plan Individual de Atención</h4>
+                <p>Basándonos principalmente en el principio de <strong>atención centrada en la persona</strong>, Manolo participa activamente en todas las decisiones sobre su Plan Individual de Atención:</p>
+                <ul>
+                    <li>Se le ha informado de todo en un formato que puede entender.</li>
+                    <li>Ha dado su <strong>consentimiento informado</strong> por escrito para todas las intervenciones necesarias.</li>
+                    <li>Participa en las reuniones de revisión trimestral y puede expresar su opinión.</li>
+                    <li>Puede solicitar cambios o suspender intervenciones en cualquier momento.</li>
+                    <li>Se le consulta sobre decisiones que le afectan.</li>
+                    <li>Se respeta su voluntad en todos los aspectos de su vida.</li>
+                    <li>Tiene un<strong>formulario de quejas y sugerencias</strong> adaptado (pictográfico) y puede contactar directamente con Elena.</li>
+                </ul>
+
+ 
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="separador"></div>
+
+<!-- ==================== TELPES ==================== -->
+<section class="seccion fade-in" id="telpes">
+    <div class="seccion-titulo">
+        <h2><i class="fas fa-bell"></i> Servicio TELPES</h2>
+        <p>Teleasistencia Personal Especializada * Funcionamiento general y adaptación para Manolo*</p>
+    </div>
+
+    <div class="tarjeta">
+        <h3><i class="fas fa-info-circle"></i> ¿Qué es el TELPES?</h3>
+        <p>El <strong>TELPES (Servicio de Teleasistencia Personal Especializada)</strong> es un servicio de ayuda personalizada a distancia. Está pensado para personas que necesitan ayuda especial. Este servicio es una mejora del servicio de ayuda en el hogar que ya existía. Ahora, el TELPES tiene funciones más avanzadas. No solo es pulsar un botón en caso de emergencia.</p>
+
+El TELPES es diferente a la ayuda básica. La ayuda básica solo permite hablar a través de un altavoz. El TELPES, en cambio, utiliza varias formas de comunicación: alertas visuales, vibraciones, sensores que controlan el ambiente, videoconferencia, conexión con dispositivos médicos y planes de respuesta personalizados.
+
+
+        <p style="margin-top:.8rem;">El servicio de TELPES esta disponble <strong>24 horas del día durante los 365 días al año</strong>, Un equipo de operadores especializados atiende las llamadas. Incluye intérpretes de Lengua de Signos Española que están disponibles durante muchas horas. El TELPES no solo ayuda en caso de emergencia. También incluye programas para llamar a los usuarios y comprobar cómo están, recordarles que tienen que tomar medicación y hacer un seguimiento de cómo se sienten. Todo esto se hace según lo que cada usuario necesita.</p>
+    </div>
+
+    <div class="telpes-grid">
+        <div class="telpes-card">
+            <i class="fas fa-vibrate icono-telpes" style="font-size:2rem;"></i>
+            <h4><i class="fas fa-hand-point-up"></i> Alertas Vibratorias</h4>
+            <p>Manolo porta una <strong>pulsera vibratoria resistente al agua </strong> que vibra con patrones distintos según el tipo de alerta: emergencia (vibración continua fuerte), recordatorio de medicación (3 vibraciones cortas), contacto entrante TELPES (2 vibraciones largas), alerta de glucemia fuera de rango (vibración intermitente). La pulsera incluye un <strong>sensor de caídas integrado</strong> que detecta impactos bruscos y ausencia de movimiento posteriormente, activando así automáticamente la alerta de emergencia si Manolo no responde en 30 segundos.</p>
+        </div>
+        <div class="telpes-card">
+            <i class="fas fa-lightbulb icono-telpes"></i>
+            <h4><i class="fas fa-lightbulb"></i> Alertas Visuales Luminosas</h4>
+            <p>Se han instalado <strong>4 dispositivos luminosos</strong> (dormitorio, salón, cocina, baño) que emiten destellos de colores dependiendo la alerta: <span style="color:#e74c3c;font-weight:700;">ROJO</span> (emergencia, fuego, intrusión), <span style="color:#f39c12;font-weight:700;">NARANJA</span> (alerta médica: glucemia fuera de rango), <span style="color:#3498db;font-weight:700;">AZUL</span> (contacto entrante TELPES o videollamada), <span style="color:#27ae60;font-weight:700;">VERDE</span> (recordatorio de rutina: medicación, comida). Para Manolo es una gran ayuda ya que estas alertas sustituyen completamente a las señales acústicas que no puede percibir.</p>
+        </div>
+        <div class="telpes-card">
+            <i class="fas fa-syringe icono-telpes"></i>
+            <h4><i class="fas fa-droplet"></i> Integración con Glucómetro</h4>
+            <p>El <strong>Freestyle Libre 2</strong> de Manolo se conecta al hub TELPES mediante Bluetooth. Cuando su nivel de azúcar en sangre baja de 70 mg/dL o sube por encima de 300 mg/dL, el TELPES se activa y realiza varias acciones.: (1) vibración en pulsera, (2) Una alerta con luz naranja., (3) El TELPES manda una notificación al centro de control, (4) Si Manolo no responde en 3 minutos, el sistema hace una llamada de emergencia con videollamada. y activando el protocolo (enviando de una ambulancia y avisando a Laura). Esto es muy importante para Manolo. Su mayor preocupación son las bajadas nocturnas de azúcar en sangre. No podría oír una alarma normal.</p>
+        </div>
+        <div class="telpes-card">
+            <i class="fas fa-person-falling icono-telpes" style="font-size:2rem;"></i>
+            <h4><i class="fas fa-exclamation-triangle"></i> Detección de Caídas</h4>
+            <p>El sensor de la pulsera detecta caídas mediante acelerómetro triaxial y giroscopio. Si detecta un impacto compatible con caída seguido de inmovilidad >30 segundos, activa automáticamente: alerta al centro TELPES + videollamada. Si Manolo está consciente, puede cancelar la falsa alarma pulsando un botón. Si no responde, se activa protocolo completo: aviso 112, contacto con Elena (coordinadora ATBT), aviso a Laura, y envío de servicios de emergencia al domicilio. Tras la caída previa de Manolo con fractura de muñeca, este sistema le proporciona <strong>tranquilidad para moverse por su casa con más confianza</strong>.</p>
+        </div>
+        <div class="telpes-card">
+            <i class="fas fa-video icono-telpes"></i>
+            <h4><i class="fas fa-video"></i> Videollamada con Intérprete LSE</h4>
+            <p>A diferencia de la teleasistencia convencional (solo voz), el TELPES permite videollamada bidireccional a través de la tablet de Manolo. En situaciones de emergencia, el operador se comunica visualmente: texto en pantalla + opción de intérprete de LSE en horario ampliado (8:00-22:00). Fuera de este horario, la comunicación es por texto + pictogramas en pantalla. Manolo puede también usar la app de transcripción integrada para convertir la voz del operador en texto durante la llamada.</p>
+        </div>
+        <div class="telpes-card">
+            <i class="fas fa-phone-alt icono-telpes"></i>
+            <h4><i class="fas fa-calendar-check"></i> Contacto Proactivo Diario</h4>
+            <p>TELPES no es solo algo que responde a situaciones. Cada día, a las <strong>9:30h</strong>, el sistema envía una señal a Manolo, que es una alerta luminosa azul y una vibración. Manolo tiene que pulsar un botón en su pulsera para decir que está bien. Si no responde en 10 minutos, entonces se hace una videollamada para ver qué pasa. Esto que pasa cada día no es solo para estar seguro, sino que Manolo siente que es como si alguien se preocupara por él cada mañana, lo que hace que se sienta menos solo. Además, cada semana, se programa una videollamada para hablar un poco sobre cómo está y cómo se siente, que dura unos 10 minutos.</p>
+        </div>
+    </div>
+
+    <div class="tarjeta" style="margin-top:2rem; border-left-color: var(--naranja-pastel);">
+        <h3><i class="fas fa-star"></i> ¿Por qué el TELPES es ideal para Manolo?</h3>
+        <p>El TELPES adaptado resuelve varios problemas importantes que Manolo enfrenta y que la teleasistencia convencional no puede solucionar.</p>
+        <ul>
+            <li><strong>La sordera:</strong> El TELPES tiene alertas que se sienten y se ven, lo que significa que Manolo puede percibir cualquier aviso en cualquier momento, incluso cuando duerme.</li>
+            <li><strong>La diabetes descontrolada:</strong> El TELPES se conecta con el glucómetro de Manolo y se convierte en una especie de guardián de su salud durante todo el día. Esto es especialmente útil durante la noche, cuando Manolo puede tener problemas con la hipoglucemia.</li>
+            <li><strong>El riesgo de caídas:</strong> el TELPES tiene un sensor que detecta si Manolo se cae y automaticamente llama a alguien para que le ayude. De esta manera, Manolo no necesita buscar un botón ni pedir ayuda por teléfono.</li>
+            <li><strong>La soledad y aislamiento:</strong> el TELPES permite que Manolo tenga contacto con otras personas todos los días, lo que ayuda a reducir la sensación de soledad.</li>
+            <li><strong>El miedo a vivir solo:</strong> El sistemaa TELPES da tranquilidad a Manolo, a su hija y a su hermano, porque saben que en caso de emergencia, habrá alguien ahi que pueda ayudar a Manolo rápidamente y de manera adecuada.</li>
+        </ul>
+    </div>
+
+    <div class="galeria" style="margin-top:1.5rem;">
+        <img src="https://images.unsplash.com/photo-1651002520565-b27c9f2b58ab?q=80&w=1833&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Tecnología sanitaria en domicilio">
+        <img src="https://images.unsplash.com/photo-1620067278260-b69624a5db6b?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Monitorización de salud a domicilio">
+        <img src="https://images.unsplash.com/photo-1684157127180-f7ffd7b67db9?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Dispositivos de teleasistencia">
+    </div>
+</section>
+
+<div class="separador"></div>
+
+<!-- ==================== SOLICITAR TELPES ==================== -->
+<section class="seccion fade-in" id="solicitar-telpes">
+    <div class="seccion-titulo">
+        <h2><i class="fas fa-paper-plane"></i> Solicitación TELPES</h2>
+        <p>Guía para la solicitud por vía pública y privada + con consejos específicos para Manolo</p>
+    </div>
+
+    <div class="tarjeta">
+        <h3><i class="fas fa-landmark"></i> Vía Pública — A través del Sistema de Dependencia (SAAD)</h3>
+        <p>El TELPES es una ayuda que se puede conseguir a través de la Ley <strong>39/2006 de Promoción de la Autonomía Personal y Atención a las Personas en situación de Dependencia. </strong>.</p>
+
+        <div class="proceso-paso">
+            <div class="paso-numero">1</div>
+            <div class="paso-contenido">
+                <h4>Solicitud de Valoración de Dependencia</h4>
+                <p>Si Manolo no tiene ya su grado de dependencia reconocido, el primer paso es pedir la valoración de dependencia en los Servicios Sociales del distrito Centro en Madrid. Como Manolo ya tiene reconocido el <strong>Grado I</strong>,esto le da derecho a los servicios del catálogo.</p>
+                <p><strong>Documentación necesaria:</strong> DNI, tarjeta sanitaria, informe médico actualizado y certificado de empadronamiento. También es útil el certificado de discapacidad auditiva, si lo tiene, para justificar la necesidad de un TELPES adaptado.</p>
+            </div>
+        </div>
+
+        <div class="proceso-paso">
+            <div class="paso-numero">2</div>
+            <div class="paso-contenido">
+                <h4>Elaboración del PIA por Servicios Sociales</h4>
+                <p>Una vez reconocido el grado de dependencia, un trabajador social del distrito crea el PIA oficial, que determina el recurso más adecuado. La trabajadora social de ATBT, Elena, puede presentar un informe complementario que explique por qué Manolo necesita un TELPES adaptado debido a su sordera, diabetes y riesgo de caídas.</p>
+                <p>El plazo para esto es de 3 a 6 meses desde la solicitud de valoración. Con el Grado I reconocido, la teleasistencia suele ser rápida.</p>
+            </div>
+        </div>
+
+        <div class="proceso-paso">
+            <div class="paso-numero">3</div>
+            <div class="paso-contenido">
+                <h4>Resolución del PIA y Asignación de Servicio</h4>
+                <p>La resolución del PIA decide los servicios a los que Manolo tiene derecho. La teleasistencia en casa es uno de los servicios más <strong>accesibles y con menos espera</strong> El TELPES adaptado puede necesitar justificación adicional por la discapacidad auditiva.</p>
+
+                <p>El copago en Madrid es gratuito para usuarios con Grado I o superior. Las adaptaciones especiales, como el TELPES, pueden tener un copago reducido según la capacidad económica. Para Manolo, con 1.670€ al mes, el copago podría ser de 0 a 20€ al mes.</p>
+            </div>
+        </div>
+
+        <div class="proceso-paso">
+            <div class="paso-numero">4</div>
+            <div class="paso-contenido">
+                <h4>Instalación y Puesta en Marcha</h4>
+                <p>Una vez aprobado, la empresa que presta el servicio, como Cruz Roja o Atenzia, instala el equipo en <strong>1 o 2 semanas</strong>. Se hace una visita técnica, se instala el equipo, se forma al usuario y se prueba el funcionamiento.</p>
+                <p><strong>Consejo para Manolo:</strong> Elena debe pedir que el técnico vaya con un intérprete de LSE o use comunicación visual, y que se verifique que todas las alertas sean perceptibles para una persona sorda.</p>
+            </div>
+        </div>
+
+        <div class="proceso-paso">
+            <div class="paso-numero">5</div>
+            <div class="paso-contenido">
+                <h4>Seguimiento y Reclamación si hay Demoras</h4>
+                <p>Si el proceso tarda más de 6 meses, Manolo puede reclamar. Elena puede interponer un recurso y, si es necesario, pedir que el servicio se active mientras se resuelve.</p>
+                <p><strong>Alternativa:</strong> Mientras se tramita, ATBT puede instalar su propio TELPES privado como solución temporal, con cargo a la prestación económica si Manolo la tiene.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="tarjeta" style="border-left-color: var(--naranja-pastel);">
+        <h3><i class="fas fa-building"></i> Vía Privada — Contratación Directa con ATBT u Otros Proveedores</h3>
+        <p>Si Manolo prefiere no esperar o quiere funcionalidades avanzadas, puede contratar el TELPES directamente con <strong>ATBT</strong> o con otros proveedores.</p>
+
+        <div class="proceso-paso">
+            <div class="paso-numero">1</div>
+            <div class="paso-contenido">
+                <h4>Contacto y Valoración Inicial</h4>
+                <p>Manolo contacta con ATBT, y se programa una <strong>visita domiciliaria de valoración</strong> gratuita y las necesidades de Manolo.</p>
+                <p><strong>Plazo:</strong> Visita en 24-48 post-solicitud.</p>
+            </div>
+        </div>
+
+        <div class="proceso-paso">
+            <div class="paso-numero">2</div>
+            <div class="paso-contenido">
+                <h4>Propuesta Técnica y Presupuesto</h4>
+                <p>ATBT elabora un presupuesto detallado. Para el TELPES adaptado de Manolo, el coste podría ser:</p>
+                <ul>
+                    <li><strong>Cuota de instalación:</strong> 150-250€.</li>
+                    <li><strong>Cuota mensual:</strong> 45-75€/mes emocional).</li>
+                    <li><strong>Sin permanencia:</strong> Se puede dejar el servicio con 15 días de preaviso..</li>
+                </ul>
+                <p><strong>Para Manolo:</strong> con sus ingresos, el coste es asumible y se puede deducir en la declaración de la renta.</p>
+            </div>
+        </div>
+
+        <div class="proceso-paso">
+            <div class="paso-numero">3</div>
+            <div class="paso-contenido">
+                <h4>Firma del Contrato e Instalación</h4>
+                <p>Se firma el contrato en formato accesible y se instala el equipo en <strong>48-72 horas</strong> y se da formación personalizada  a Manolo.</p>
+            </div>
+        </div>
+
+        <div class="proceso-paso">
+            <div class="paso-numero">4</div>
+            <div class="paso-contenido">
+                <h4>Período de Prueba y Ajuste</h4>
+                <p>El primer mes es para ajustar y calibrar el sistema (como la sensibilidad del sensor de caída o se verifica que Manolo responda correctamente a las alertas </p>
+            </div>
+        </div>
+
+        <div class="proceso-paso">
+            <div class="paso-numero">5</div>
+            <div class="paso-contenido">
+                <h4>Mantenimiento y Soporte Continuo</h4>
+                <p>ATBT proporciona mantenimiento de equipos, sustitución de la pulsera si se avería, actualización de software, revisión técnica semestral y soporte técnico accesible.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="tarjeta" style="border-left-color: var(--verde-oscuro);">
+        <h3><i class="fas fa-file-alt"></i> Documentación Necesaria para la Solicitud</h3>
+        <ul>
+            <li><i class="fas fa-check" style="color:var(--verde-oscuro);"></i> <strong>DNI</strong> de Manolo — original y fotocopia.</li>
+            <li><i class="fas fa-check" style="color:var(--verde-oscuro);"></i> <strong>Tarjeta sanitaria</strong> de la Comunidad de Madrid.</li>
+            <li><i class="fas fa-check" style="color:var(--verde-oscuro);"></i> <strong>Certificado de empadronamiento</strong>.</li>
+            <li><i class="fas fa-check" style="color:var(--verde-oscuro);"></i> <strong>Resolución de grado de dependencia</strong>.</li>
+            <li><i class="fas fa-check" style="color:var(--verde-oscuro);"></i> <strong>Informe médico actualizado</strong> — solicitar al médico de familia del Centro de Salud.</li>
+            <li><i class="fas fa-check" style="color:var(--verde-oscuro);"></i> <strong>Certificado de discapacidad</strong>, si lo tiene.</li>
+            <li><i class="fas fa-check" style="color:var(--verde-oscuro);"></i> <strong>Informe social de ATBT</strong>.</li>
+            <li><i class="fas fa-check" style="color:var(--verde-oscuro);"></i> <strong>Justificante de ingresos</strong></li>
+            <li><i class="fas fa-check" style="color:var(--verde-oscuro);"></i> <strong>Datos de contacto de familiares</strong> — protocolo de emergencia.</li>
+        </ul>
+        <p style="margin-top:1rem;"><i class="fas fa-lightbulb" style="color:var(--naranja-oscuro);"></i> <strong>Consejo para Manolo:</strong> Elena puede acompañarle en todo el proceso, gestionar la cita con Servicios Sociales y actuar como intermediaria comunicativa.</p>
+    </div>
+</section>
+
+<div class="separador"></div>
+
+<!-- ==================== FOOTER ==================== -->
+<footer>
+    <div class="footer-logo"><i class="fas fa-heart-pulse"></i> ATBT — Atención Total · Bienestar Total</div>
+    <p>Plan Individual de Atención Domiciliario · Expediente EXP-2025-04789-ATBT</p>
+    <p>Documento elaborado por el equipo multidisciplinar de ATBT · Madrid, 2025</p>
+    <p style="margin-top:.8rem;">
+        <i class="fas fa-envelope"></i> <a href="mailto:contacto@atbt.es">contacto@atbt.es</a> &nbsp;|&nbsp;
+        <i class="fas fa-phone"></i> 900 123 456 (accesible por videollamada)
+    </p>
+    <p style="margin-top:.5rem; font-size:.8rem; opacity:.7;">&copy; 2025 ATBT · Todos los derechos reservados · Este documento contiene datos personales protegidos por el RGPD</p>
+</footer>
+
+<!-- BOTÓN VOLVER ARRIBA -->
+<button class="btn-arriba" id="btnArriba" title="Volver arriba" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <i class="fas fa-arrow-up"></i>
+</button>
+
+<!-- ==================== JAVASCRIPT ==================== -->
+<script>
+    // Acordeón
+    function toggleAcordeon(btn) {
+        const contenido = btn.nextElementSibling;
+        const abierto = contenido.classList.contains('abierto');
+
+        // Cerrar todos
+        document.querySelectorAll('.acordeon-contenido').forEach(c => c.classList.remove('abierto'));
+        document.querySelectorAll('.acordeon-btn').forEach(b => b.classList.remove('activo'));
+
+        // Abrir el clicado (si no estaba abierto)
+        if (!abierto) {
+            contenido.classList.add('abierto');
+            btn.classList.add('activo');
+        }
+    }
+
+    // Botón volver arriba
+    const btnArriba = document.getElementById('btnArriba');
+    window.addEventListener('scroll', () => {
+        btnArriba.classList.toggle('visible', window.scrollY > 500);
+    });
+
+    // Scroll suave para los enlaces del nav
+    document.querySelectorAll('.nav-sticky a').forEach(enlace => {
+        enlace.addEventListener('click', function(e) {
+            e.preventDefault();
+            const destino = document.querySelector(this.getAttribute('href'));
+            if (destino) {
+                const offset = document.querySelector('.nav-sticky').offsetHeight + 10;
+                const top = destino.getBoundingClientRect().top + window.pageYOffset - offset;
+                window.scrollTo({ top, behavior: 'smooth' });
+            }
+        });
+    });
+
+    // Resaltar enlace activo del nav
+    const secciones = document.querySelectorAll('section[id], div[id]');
+    const navLinks = document.querySelectorAll('.nav-sticky a');
+    window.addEventListener('scroll', () => {
+        let actual = '';
+        const navH = document.querySelector('.nav-sticky').offsetHeight + 20;
+        secciones.forEach(sec => {
+            if (sec.offsetTop - navH <= window.scrollY) {
+                actual = sec.getAttribute('id');
+            }
+        });
+        navLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === '#' + actual);
+        });
+    });
+
+    // Animación de entrada al hacer scroll
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible-anim');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
